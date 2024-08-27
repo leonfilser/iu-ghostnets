@@ -7,12 +7,13 @@
 
     <h:head>
         <title>Shea Shepherd</title>
+        <link rel="icon" type="image/x-icon" href="media/favicon.ico" />
         <link rel="stylesheet" type="text/css" media="screen" href="style.css"/>
     </h:head>
 
     <h:body>
 
-        <img src="media/logo.png" width="350" alt="Shea Shepherd Logo"/>
+        <img class="home-logo" src="media/logo.png" width="350" alt="Shea Shepherd Logo"/>
 
         <h1 class="home-title">Shea Shepherd</h1>
         <h2 class="home-subtitle">Geisternetze bergen - Meere bewahren</h2>
@@ -21,30 +22,31 @@
             <p:button class="cta-btn-melden" value="Geisternetz melden" />
             <p:button class="cta-btn-bergen" value="Geisternetz bergen" />
         </div>
-        
-        
-        <h:outputText value="#{geisternetz.id}" />
-        <h:outputText value="#{geisternetz.registriert}" />
-        <h:outputText value="#{geisternetz.geaendert}" />
-        <h:outputText value="#{geisternetz.gesichtet}" />
-        <h:outputText value="#{geisternetz.status}" />
-        <h:outputText value="#{geisternetz.breitengrad}" />
-        <h:outputText value="#{geisternetz.laengengrad}" />
 
+        <h:form class="home-ghostnets-tableview">
+            <div class="ghostnets-info-container">
+                <h3>Aktuelle Sichtungen</h3>
+                <p:toggleSwitch>
+                </p:toggleSwitch>
+            </div>
 
-            <p:dataTable var="geisternetz" value="#{webapp.geisternetze}" rowKey="#{webapp.geisternetze}">
-                <p:column headerText="ID">
-                    <h:outputText value="#{geisternetz.id}" />
-                </p:column>
-                <p:column headerText="Registriert">
-                    <h:outputText value="#{geisternetz.registriert}" />
-                </p:column>
-                <p:column headerText="Status">
+            <p:dataTable var="geisternetz" value="#{webapp.geisternetze}" allowUnsorting="true" sortMode="single" rows="5">
+                <p:column headerText="Status" sortBy="#{geisternetz.status}">
                     <h:outputText value="#{geisternetz.status}" />
                 </p:column>
-                <p:column headerText="Breitengrad">
+                <p:column headerText="Gesichtet" sortBy="#{geisternetz.gesichtet}">
+                    <h:outputText value="#{geisternetz.gesichtet}" />
+                </p:column>
+                <p:column headerText="Längengrad" sortBy="#{geisternetz.laengengrad}">
+                    <h:outputText value="#{geisternetz.laengengrad}" />
+                </p:column>
+                <p:column headerText="Breitengrad" sortBy="#{geisternetz.breitengrad}">
                     <h:outputText value="#{geisternetz.breitengrad}" />
                 </p:column>
+                <p:column headerText="Navigieren">
+                    <p:commandButton value="Google Maps" onclick="window.open('https://maps.google.de/maps?q=#{geisternetz.breitengrad},#{geisternetz.breitengrad}', '_blank'); return false;" />
+                </p:column>
             </p:dataTable>
+        </h:form>
     </h:body>
 </html>

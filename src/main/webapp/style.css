@@ -1,31 +1,73 @@
+:root{
+  --primary-color: #1B3B46;
+  --secondary-color: #A3C6CC;
+  --background-color: #f9f9f9;
+}
+
 body {
-    display: flex;
-    justify-content: center; /* Centers content horizontally */
-    align-items: center; /* Centers content vertically */
-    text-align: center;
-    flex-direction: column;
-    font-family: 'Roboto', sans-serif;
-  }
+  /*Zentriert alle Seitenelemente*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+
+  /*Ändert die Hintergrundfarbe der Seite*/
+  background-color: var(--background-color);
+
+  /*Ändert die Standardschriftart und -farbe*/
+  font-family: 'Roboto', sans-serif;
+  color: var(--primary-color);
+}
+
+img.home-logo {
+  margin-top: 4em;
+  margin-bottom: 4em;
+}
 
 h1.home-title {
-    font-size: 5.5em;
-    font-weight: 900;
-  }
+  font-size: 5.5em;
+  font-weight: 900;
+  margin: 0;
+}
 
 h2.home-subtitle {
-    font-size: 2em;
-    font-weight: 400;
-  }
+  font-size: 2.2em;
+  font-weight: 500;
+  margin: 0;
+}
 
 .cta-btn-container {
-    display: flex;
-    justify-content: center; /* Center buttons within the container */
-    align-items: center;
-    gap: 20px; /* Space between buttons */
-    margin-top: 20px;
-  }
+  display: flex;
+  gap: 20px; /* Space between buttons */
+  margin-top: 4em;
+  margin-bottom: 4em;
+}
 
-.ui-button {
-    background-color: black;
-    background: black;
-  }
+/*Ändert das Standarddesign der Primefaces Button*/
+body .ui-button, body .ui-button.ui-state-hover {
+  border: 2px solid var(--primary-color);
+  border-radius: 10px;
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  padding: 0.5em;
+  font-weight: 500;
+}
+
+/*Ändert das Standarddesign der Primefaces Button beim hovern*/
+body .ui-button.ui-state-hover, body .ui-button.ui-state-active {
+  border: 2px solid var(--primary-color);
+  background: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+/*Ändert das Standarddesign der Primefaces Datatable*/
+.home-ghostnets-tableview{
+  max-width: 1200px;
+}
+
+.ghostnets-info-container{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}

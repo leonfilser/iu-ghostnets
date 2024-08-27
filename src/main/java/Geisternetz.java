@@ -1,9 +1,9 @@
 import jakarta.inject.Named;
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.SessionScoped;
 import java.util.Date;
 
 @Named
-@RequestScoped
+@SessionScoped
 public class Geisternetz {
     
     // Variablen
