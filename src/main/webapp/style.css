@@ -1,0 +1,31 @@
+body {
+    display: flex;
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+    text-align: center;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+  }
+
+h1.home-title {
+    font-size: 5.5em;
+    font-weight: 900;
+  }
+
+h2.home-subtitle {
+    font-size: 2em;
+    font-weight: 400;
+  }
+
+.cta-btn-container {
+    display: flex;
+    justify-content: center; /* Center buttons within the container */
+    align-items: center;
+    gap: 20px; /* Space between buttons */
+    margin-top: 20px;
+  }
+
+.ui-button {
+    background-color: black;
+    background: black;
+  }

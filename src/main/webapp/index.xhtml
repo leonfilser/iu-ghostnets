@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Shea Shepherd</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="style.css"/>
+    </h:head>
+
+    <h:body>
+
+        <img src="media/logo.png" width="350" alt="Shea Shepherd Logo"/>
+
+        <h1 class="home-title">Shea Shepherd</h1>
+        <h2 class="home-subtitle">Geisternetze bergen - Meere bewahren</h2>
+
+        <div class="cta-btn-container">
+            <p:button class="cta-btn-melden" value="Geisternetz melden" />
+            <p:button class="cta-btn-bergen" value="Geisternetz bergen" />
+        </div>
+        
+        
+        <h:outputText value="#{geisternetz.id}" />
+        <h:outputText value="#{geisternetz.registriert}" />
+        <h:outputText value="#{geisternetz.geaendert}" />
+        <h:outputText value="#{geisternetz.gesichtet}" />
+        <h:outputText value="#{geisternetz.status}" />
+        <h:outputText value="#{geisternetz.breitengrad}" />
+        <h:outputText value="#{geisternetz.laengengrad}" />
+
+
+            <p:dataTable var="geisternetz" value="#{webapp.geisternetze}" rowKey="#{webapp.geisternetze}">
+                <p:column headerText="ID">
+                    <h:outputText value="#{geisternetz.id}" />
+                </p:column>
+                <p:column headerText="Registriert">
+                    <h:outputText value="#{geisternetz.registriert}" />
+                </p:column>
+                <p:column headerText="Status">
+                    <h:outputText value="#{geisternetz.status}" />
+                </p:column>
+                <p:column headerText="Breitengrad">
+                    <h:outputText value="#{geisternetz.breitengrad}" />
+                </p:column>
+            </p:dataTable>
+    </h:body>
+</html>
