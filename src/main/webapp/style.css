@@ -5,27 +5,24 @@
 }
 
 body {
-  /*Zentriert alle Seitenelemente*/
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  align-content: center;
-
-  /*Ändert die Hintergrundfarbe der Seite*/
-  background-color: var(--background-color);
+  background-color: var(--background-color); /*Ändert die Hintergrundfarbe der Seite*/
 
   /*Ändert die Standardschriftart und -farbe für alle Elemente*/
   font-family: 'Roboto', sans-serif;
   color: var(--primary-color);
 }
 
-/*Klasse, welche die Breite aller verlinkten Elemente auf 1200px begrenzt*/
-.custom-width {
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 1200px;
 }
 
 img.home-logo {
+  width: 350px;
   margin-top: 4em;
   margin-bottom: 4em;
 }
@@ -75,7 +72,7 @@ div.home-infotext{
   text-align: center;
 }
 
-.ghostnets-info-container{
+.toggle-container{
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -88,4 +85,21 @@ thead tr th.ui-state-default{
 
 tbody.ui-datatable-data > tr{
   background: var(--secondary-color) !important;
+}
+
+button.table-btn-bergen{
+  border: 2px solid var(--primary-color);
+  border-radius: 7px;
+  background: var(--primary-color);
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+button.table-btn-bergen.ui-state-hover, button.table-btn-bergen.ui-state-active{
+  border: 2px solid var(--primary-color);
+  border-radius: 7px;
+  color: var(--primary-color);
+  background: var(--secondary-color);
+  padding-left: 1em;
+  padding-right: 1em;
 }

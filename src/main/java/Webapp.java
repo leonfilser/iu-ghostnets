@@ -9,6 +9,7 @@ import java.util.Date;
 public class Webapp{
     
     private Collection<Geisternetz> geisternetze = new ArrayList<Geisternetz>();
+    private boolean toggleState = false;
 
     public Webapp()
     {
@@ -26,4 +27,13 @@ public class Webapp{
     public Collection<Geisternetz> getGeisternetze() {
         return geisternetze;
     }
+
+    public boolean isToggleState() {
+        return toggleState;
+    }
+
+    public void setToggleState(boolean toggleState) {
+        this.toggleState = toggleState;
+    }
+
 }
