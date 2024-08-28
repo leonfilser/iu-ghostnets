@@ -16,14 +16,17 @@
             <h1 class="home-title">
                 <a href="index.xhtml">Shea Shepherd</a>
             </h1>
-            
-            <p:inputText placeholder="Vorname"/>
-            <p:inputText placeholder="Nachname"/>
-            <p:inputText placeholder="Telefon"/>
-            <p:inputText placeholder="E-Mail"/>
-            <p:inputText placeholder="Breitengrad"/>
-            <p:inputText placeholder="Längengrad"/>
-            <p:inputText placeholder="ungefähre Größe in m^3"/>
+            <h:form>
+                <p:panel header="Neues Ghostnet erstellen">
+                    <p:inputText value="#{ghostnetController.id}" placeholder="ID" />
+                    <p:inputText value="#{ghostnetController.currentState}" placeholder="currentState" />
+                    <p:inputText value="#{ghostnetController.latitude}" placeholder="latitude" />
+                    <p:inputText value="#{ghostnetController.longtitude}" placeholder="longtitude" />
+                    <p:inputText value="#{ghostnetController.volume}" placeholder="volume" />
+
+                    <p:commandButton value="Ghostnet hinzufügen" action="#{ghostnetController.addGhostnet}" />
+                </p:panel>
+            </h:form>
 
         </div>
     </body>

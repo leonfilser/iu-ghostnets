@@ -29,7 +29,7 @@
             </div>
 
             <h:form>
-                <p:dataTable value="#{webapp.ghostnetCollection}" var="ghostnet" rows="5">
+                <p:dataTable value="#{ghostnetController.ghostnetCollection}" var="ghostnet">
                     <p:column headerText="Status">
                         <h:outputText value="#{ghostnet.currentState}" />
                     </p:column>
