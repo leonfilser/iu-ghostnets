@@ -14,8 +14,9 @@ public class Geisternetz {
     private String status = "LEER"; // Aktueller Status des Geisternetzes: Gemeldet, Bergung bevorstehend, Geborgen, Verschollen
     private double breitengrad = 0.0; // Position Breitengrad des Geisternetzes
     private double laengengrad = 0.0; // Position Längengrad des Geisternetzes
+    private int groesse = 0; // Größe des Geisternetzes: Anzugeben in Kubikmeter
 
-    public Geisternetz(int id, Date registriert, Date geaendert, Date gesichtet, String status, double breitengrad, double laengengrad)
+    public Geisternetz(int id, Date registriert, Date geaendert, Date gesichtet, String status, double breitengrad, double laengengrad, int groesse)
     {
         this.id = id;
         this.registriert = registriert;
@@ -24,6 +25,7 @@ public class Geisternetz {
         this.status = status;
         this.breitengrad = breitengrad;
         this.laengengrad = laengengrad;
+        this.groesse = groesse;
     }
 
     // Getter und Setter
@@ -82,5 +84,13 @@ public class Geisternetz {
 
     public void setLaengengrad(double laengengrad) {
         this.laengengrad = laengengrad;
+    }
+
+    public int getGroesse() {
+        return groesse;
+    }
+
+    public void setGroesse(int groesse) {
+        this.groesse = groesse;
     }
 }

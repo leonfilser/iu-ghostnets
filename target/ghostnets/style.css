@@ -15,9 +15,14 @@ body {
   /*Ändert die Hintergrundfarbe der Seite*/
   background-color: var(--background-color);
 
-  /*Ändert die Standardschriftart und -farbe*/
+  /*Ändert die Standardschriftart und -farbe für alle Elemente*/
   font-family: 'Roboto', sans-serif;
   color: var(--primary-color);
+}
+
+/*Klasse, welche die Breite aller verlinkten Elemente auf 1200px begrenzt*/
+.custom-width {
+  max-width: 1200px;
 }
 
 img.home-logo {
@@ -37,7 +42,7 @@ h2.home-subtitle {
   margin: 0;
 }
 
-.cta-btn-container {
+div.cta-btn-container {
   display: flex;
   gap: 20px; /* Space between buttons */
   margin-top: 4em;
@@ -45,7 +50,7 @@ h2.home-subtitle {
 }
 
 /*Ändert das Standarddesign der Primefaces Button*/
-body .ui-button, body .ui-button.ui-state-hover {
+button.cta-btn-bergen, button.cta-btn-melden.ui-state-hover, button.cta-btn-melden.ui-state-active {
   border: 2px solid var(--primary-color);
   border-radius: 10px;
   background: var(--secondary-color);
@@ -55,19 +60,32 @@ body .ui-button, body .ui-button.ui-state-hover {
 }
 
 /*Ändert das Standarddesign der Primefaces Button beim hovern*/
-body .ui-button.ui-state-hover, body .ui-button.ui-state-active {
+button.cta-btn-melden, button.cta-btn-bergen.ui-state-hover, button.cta-btn-bergen.ui-state-active {
   border: 2px solid var(--primary-color);
+  border-radius: 10px;
   background: var(--primary-color);
   color: var(--secondary-color);
+  padding: 0.5em;
+  font-weight: 500;
 }
 
-/*Ändert das Standarddesign der Primefaces Datatable*/
-.home-ghostnets-tableview{
-  max-width: 1200px;
+div.home-infotext{
+  font-size: 1.2em;
+  max-width: 60%;
+  text-align: center;
 }
 
 .ghostnets-info-container{
   display: flex;
   width: 100%;
   justify-content: space-between;
+}
+
+thead tr th.ui-state-default{
+  background: var(--primary-color);
+  color: white;
+}
+
+tbody.ui-datatable-data > tr{
+  background: var(--secondary-color) !important;
 }
