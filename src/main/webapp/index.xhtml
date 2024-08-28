@@ -26,29 +26,30 @@
 
             <div class="toggle-container">
                 <h3>Letzte 5 Meldungen</h3>
-                <p:toggleSwitch value="#{webapp.toggleState}">
-                </p:toggleSwitch>
-                <h:outputText value="#{webapp.toggleState ? 'XYZ' : 'ABC'}" />
             </div>
 
-            <h:form class="">
-                <p:dataTable var="geisternetz" value="#{webapp.geisternetze}" rows="5">
+            <h:form>
+                <p:dataTable value="#{webapp.ghostnetCollection}" var="ghostnet" rows="5">
                     <p:column headerText="Status">
-                        <h:outputText value="#{geisternetz.status}" />
+                        <h:outputText value="#{ghostnet.currentState}" />
                     </p:column>
+
                     <p:column headerText="Geschätztes Volumen">
-                        <h:outputText value="#{geisternetz.groesse}" />m<sup>3</sup>
+                        <h:outputText value="#{ghostnet.volume}" />m<sup>3</sup>
                     </p:column>
-                    <p:column headerText="Gesichtet">
-                        <h:outputText value="#{geisternetz.gesichtet}">
+
+                    <p:column headerText="Gemeldet">
+                        <h:outputText value="#{ghostnet.reportDate}">
                             <f:convertDateTime pattern="dd.MM.yyyy" />
                         </h:outputText>
                     </p:column>
-                    <p:column headerText="Position">
+
+                    <p:column headerText="Koordinaten">
                         <h:outputLink value="https://maps.google.com/?q=#{geisternetz.breitengrad},#{geisternetz.laengengrad}" target="_blank">
-                            <h:outputText value="#{geisternetz.breitengrad}, #{geisternetz.laengengrad}" />
+                            <h:outputText value="#{ghostnet.latitude}, #{ghostnet.longtitude}" />
                         </h:outputLink>
                     </p:column>
+
                     <p:column headerText="Netz Bergen">
                         <p:commandButton class="table-btn-bergen" value="Bergen" />
                     </p:column>
