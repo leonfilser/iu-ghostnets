@@ -16,18 +16,16 @@
             <h1 class="home-title">
                 <a href="index.xhtml">Shea Shepherd</a>
             </h1>
+
             <h:form>
                 <p:panel header="Neues Ghostnet erstellen">
-                    <p:inputText value="#{ghostnetController.id}" placeholder="ID" />
-                    <p:inputText value="#{ghostnetController.currentState}" placeholder="currentState" />
-                    <p:inputText value="#{ghostnetController.latitude}" placeholder="latitude" />
-                    <p:inputText value="#{ghostnetController.longtitude}" placeholder="longtitude" />
-                    <p:inputText value="#{ghostnetController.volume}" placeholder="volume" />
-
-                    <p:commandButton value="Ghostnet hinzufügen" action="#{ghostnetController.addGhostnet}" />
+                    <p:calendar value="#{ghostnetController.newGhostnet.reportDate}" placeholder="" pattern="dd/MM/yyyy" />
+                    <p:inputText value="#{ghostnetController.newGhostnet.latitude}" placeholder="Breitengrad" />
+                    <p:inputText value="#{ghostnetController.newGhostnet.longitude}" placeholder="Längengrad" />
+                    <p:inputText value="#{ghostnetController.newGhostnet.volume}" placeholder="Volumen in m^3" />
                 </p:panel>
+                <p:commandButton value="Neues Geisternetz registrieren" action="#{ghostnetController.addNewGhostnet}" />
             </h:form>
-
         </div>
     </body>
 </html>

@@ -27,26 +27,26 @@
             <div class="toggle-container">
                 <h3>Letzte 5 Meldungen</h3>
             </div>
-
+            
             <h:form>
-                <p:dataTable value="#{ghostnetController.ghostnetCollection}" var="ghostnet">
+                <p:dataTable value="#{webapp.ghostnetList}" var="singleGhostnetItem">
                     <p:column headerText="Status">
-                        <h:outputText value="#{ghostnet.currentState}" />
+                        <h:outputText value="#{singleGhostnetItem.currentState}" />
                     </p:column>
 
                     <p:column headerText="Geschätztes Volumen">
-                        <h:outputText value="#{ghostnet.volume}" />m<sup>3</sup>
+                        <h:outputText value="#{singleGhostnetItem.volume}" />m<sup>3</sup>
                     </p:column>
 
                     <p:column headerText="Gemeldet">
-                        <h:outputText value="#{ghostnet.reportDate}">
+                        <h:outputText value="#{singleGhostnetItem.reportDate}">
                             <f:convertDateTime pattern="dd.MM.yyyy" />
                         </h:outputText>
                     </p:column>
 
                     <p:column headerText="Koordinaten">
-                        <h:outputLink value="https://maps.google.com/?q=#{geisternetz.breitengrad},#{geisternetz.laengengrad}" target="_blank">
-                            <h:outputText value="#{ghostnet.latitude}, #{ghostnet.longtitude}" />
+                        <h:outputLink value="https://maps.google.com/?q=#{singleGhostnetItem.latitude},#{singleGhostnetItem.longitude}" target="_blank">
+                            <h:outputText value="#{singleGhostnetItem.latitude}, #{singleGhostnetItem.longitude}" />
                         </h:outputLink>
                     </p:column>
 

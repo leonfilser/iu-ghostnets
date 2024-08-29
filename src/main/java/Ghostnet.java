@@ -1,28 +1,24 @@
 import jakarta.inject.Named;
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.faces.view.ViewScoped;
+
+import java.io.Serializable;
 import java.util.Date;
 
 @Named
-@ApplicationScoped
-public class Ghostnet {
+@ViewScoped
+public class Ghostnet implements Serializable {
     
     private int id;
     private Date reportDate;
     private Date stateUpdated;
     private String currentState;
     private double latitude;
-    private double longtitude;
+    private double longitude;
     private int volume;
 
-    public Ghostnet(int id, Date reportDate, Date stateUpdated, String currentState, double latitude, double longtitude, int volume)
+    public Ghostnet()
     {
-        this.id = id;
-        this.reportDate = reportDate;
-        this.stateUpdated = stateUpdated;
-        this.currentState = currentState;
-        this.latitude = latitude;
-        this.longtitude = longtitude;
-        this.volume = volume;
+
     }
 
     public int getId() {
@@ -65,12 +61,12 @@ public class Ghostnet {
         this.latitude = latitude;
     }
 
-    public double getLongtitude() {
-        return longtitude;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setLongtitude(double longtitude) {
-        this.longtitude = longtitude;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public int getVolume() {
