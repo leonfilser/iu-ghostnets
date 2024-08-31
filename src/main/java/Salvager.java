@@ -1,23 +1,21 @@
-import jakarta.inject.Named;
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Temporal;
+import java.io.Serializable;
+import java.util.Date;
 
-@Named
-@ApplicationScoped
-public class User {
+
+@Entity
+public class Salvager {
     
+    @Id
     private int id;
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private String emailAdress;
 
-    public User(int id, String firstName, String lastName, String phoneNumber, String emailAdress)
-    {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.emailAdress = emailAdress;
+    public Salvager() {
+
     }
 
     public int getId() {
@@ -50,13 +48,5 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmailAdress() {
-        return emailAdress;
-    }
-
-    public void setEmailAdress(String emailAdress) {
-        this.emailAdress = emailAdress;
     }
 }

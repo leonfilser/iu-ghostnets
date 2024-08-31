@@ -1,20 +1,23 @@
-import jakarta.inject.Named;
-import jakarta.faces.view.ViewScoped;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Temporal;
 import java.io.Serializable;
 import java.util.Date;
 
-@Named
-@ViewScoped
+@Entity
 public class Ghostnet implements Serializable {
     
+    @Id
     private int id;
-    private Date reportDate;
-    private Date stateUpdated;
     private String currentState;
     private double latitude;
     private double longitude;
     private int volume;
+
+    @Temporal(jakarta.persistence.TemporalType.DATE)
+    private Date reportDate;
+    @Temporal(jakarta.persistence.TemporalType.DATE)
+    private Date stateUpdated;
 
     public Ghostnet()
     {

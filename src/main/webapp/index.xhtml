@@ -29,7 +29,7 @@
             </div>
             
             <h:form>
-                <p:dataTable value="#{webapp.ghostnetList}" var="singleGhostnetItem">
+                <p:dataTable value="#{webapp.ghostnetList}" var="singleGhostnetItem" sortOrder="ascending" sortBy="#{singleGhostnetItem.reportDate}">
                     <p:column headerText="Status">
                         <h:outputText value="#{singleGhostnetItem.currentState}" />
                     </p:column>
@@ -55,6 +55,7 @@
                     </p:column>
                 </p:dataTable>
             </h:form>
+
         </div>
     </h:body>
 </html>

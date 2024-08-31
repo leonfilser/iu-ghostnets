@@ -13,18 +13,107 @@
 
     <body>
         <div class="main-container">
+
             <h1 class="home-title">
                 <a href="index.xhtml">Shea Shepherd</a>
             </h1>
 
-            <h:form>
-                <p:panel header="Neues Ghostnet erstellen">
-                    <p:calendar value="#{ghostnetController.newGhostnet.reportDate}" placeholder="" pattern="dd/MM/yyyy" />
-                    <p:inputText value="#{ghostnetController.newGhostnet.latitude}" placeholder="Breitengrad" />
-                    <p:inputText value="#{ghostnetController.newGhostnet.longitude}" placeholder="Längengrad" />
-                    <p:inputText value="#{ghostnetController.newGhostnet.volume}" placeholder="Volumen in m^3" />
-                </p:panel>
-                <p:commandButton value="Neues Geisternetz registrieren" action="#{ghostnetController.addNewGhostnet}" />
+            <h:form id="createNewGhostnetForm">
+                <div>
+                    <div>
+                        <h:outputText value="Sichtungszeitpunkt:"/>
+                        <p:calendar title="Sichtungszeitpunkt"
+                                    required="true"
+                                    id="reportDate"
+                                    placeholder="Sichtungszeitpunkt"
+                                    value="#{ghostnetController.newGhostnet.reportDate}"
+                                    pattern="dd/MM/yyyy">
+                        </p:calendar>
+                        <p:message for="reportDate" label="ABCDE"/>
+                    </div>
+
+                    <div>
+                        <h:outputText value="Breitengrad:"/>
+                        <p:inputText title="Breitengrad"
+                                    required="true"
+                                    id="latitude"
+                                    placeholder="Breitengrad"
+                                    value="#{ghostnetController.newGhostnet.latitude}">
+
+                                    <f:validateDoubleRange minimum="-90" maximum="90" />
+
+                        </p:inputText>
+                        <p:message for="latitude" display="ABCDE"/>
+                    </div>
+
+                    <div>
+                        <h:outputText value="Längengrad:"/>
+                        <p:inputText title="Längengrad"
+                                    required="true"
+                                    id="longitude"
+                                    placeholder="Längengrad"
+                                    value="#{ghostnetController.newGhostnet.longitude}">
+
+                                    <f:validateDoubleRange minimum="-180" maximum="180" />
+
+                        </p:inputText>
+                        <p:message for="longitude" display="ABCDE"/>
+                    </div>
+
+                    <div>
+                        <h:outputText value="Geschätzte Größe m^2"/>
+                        <p:inputText title="Geschätzte Größe (m^2)"
+                                    required="true"
+                                    id="volume"
+                                    placeholder="Geschätze Größe (m^2)"
+                                    value="#{ghostnetController.newGhostnet.volume}">
+
+                                    <f:validateLongRange minimum="1" maximum="1000" />
+
+                        </p:inputText>
+                        <p:message for="volume" label="ABCDE"/>
+                    </div>
+                </div>
+
+                    <h:outputText value="Vorname"/>
+                    <p:inputText title="Vorname"
+                                 required="true"
+                                 id="firstName"
+                                 placeholder="Vorname"
+                                 value="Vorname">
+
+                                 <f:validateLength minimum="2" maximum="20" />
+                                 <f:validateRegex pattern="[A-Za-z]*" />
+
+                    </p:inputText>
+                    
+                    <h:outputText value="Nachname"/>
+                    <p:inputText title="Nachname"
+                                 required="true"
+                                 id="lastName"
+                                 placeholder="Nachname"
+                                 value="Nachname">
+
+                                 <f:validateLength minimum="2" maximum="20" />
+                                 <f:validateRegex pattern="[A-Za-z]*" />
+
+                    </p:inputText>
+
+                    <h:outputText value="Telefonnummer"/>
+                    <p:inputText title="Telefonnummer (optional)"
+                                 required="false"
+                                 id="phoneNumber"
+                                 placeholder="Telefonnummer (optional)"
+                                 value="Telefon">
+
+                                 <f:validateLength minimum="2" maximum="20" />
+                                 <f:validateRegex pattern="[A-Za-z]*" />
+
+                    </p:inputText>
+
+                    <p:messages id="messages" showDetail="true" showSummary="false" autoUpdate="true" />
+
+                    <p:commandButton class="cta-btn-melden" value="Neues Geisternetz registrieren" action="#{ghostnetController.addNewGhostnet}" update="createNewGhostnetForm" />
             </h:form>
         </div>
     </body>

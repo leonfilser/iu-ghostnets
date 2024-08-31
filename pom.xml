@@ -54,6 +54,25 @@
       <version>11.0.0</version>
       <classifier>jakarta</classifier>
     </dependency>
+
+    <dependency>
+      <groupId>org.mariadb.jdbc</groupId>
+      <artifactId>mariadb-java-client</artifactId>
+      <version>3.1.4</version> 
+    </dependency>
+
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>6.2.24.Final</version>
+    </dependency>
+
+    <!-- <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>5.4.24.Final</version>
+    </dependency> -->
+
   </dependencies>
 
   <build>
