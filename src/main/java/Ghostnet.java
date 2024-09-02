@@ -1,13 +1,20 @@
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Temporal;
 import java.io.Serializable;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Temporal;
+
 import java.util.Date;
 
 @Entity
 public class Ghostnet implements Serializable {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String currentState;
     private double latitude;
@@ -19,6 +26,14 @@ public class Ghostnet implements Serializable {
     @Temporal(jakarta.persistence.TemporalType.DATE)
     private Date stateUpdated;
 
+    @ManyToOne
+    @JoinColumn(name = "reporter_id")  // FK to the User who reported the Ghostnet
+    private User reporter;
+
+    @ManyToOne
+    @JoinColumn(name = "retriever_id")  // FK to the User who retrieved the Ghostnet
+    private User retriever;
+    
     public Ghostnet()
     {
 
@@ -30,22 +45,6 @@ public class Ghostnet implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Date getReportDate() {
-        return reportDate;
-    }
-
-    public void setReportDate(Date reportDate) {
-        this.reportDate = reportDate;
-    }
-
-    public Date getStateUpdated() {
-        return stateUpdated;
-    }
-
-    public void setStateUpdated(Date stateUpdated) {
-        this.stateUpdated = stateUpdated;
     }
 
     public String getCurrentState() {
@@ -78,5 +77,37 @@ public class Ghostnet implements Serializable {
 
     public void setVolume(int volume) {
         this.volume = volume;
+    }
+
+    public Date getReportDate() {
+        return reportDate;
+    }
+
+    public void setReportDate(Date reportDate) {
+        this.reportDate = reportDate;
+    }
+
+    public Date getStateUpdated() {
+        return stateUpdated;
+    }
+
+    public void setStateUpdated(Date stateUpdated) {
+        this.stateUpdated = stateUpdated;
+    }
+
+    public User getReporter() {
+        return reporter;
+    }
+
+    public void setReporter(User reporter) {
+        this.reporter = reporter;
+    }
+
+    public User getRetriever() {
+        return retriever;
+    }
+
+    public void setRetriever(User retriever) {
+        this.retriever = retriever;
     }
 }

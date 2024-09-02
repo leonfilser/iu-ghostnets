@@ -19,6 +19,7 @@ body {
   flex-direction: column;
   align-items: center;
   max-width: 1200px;
+  justify-content: center;
 }
 
 img.home-logo {
@@ -102,4 +103,12 @@ button.table-btn-bergen.ui-state-hover, button.table-btn-bergen.ui-state-active{
   background: var(--secondary-color);
   padding-left: 1em;
   padding-right: 1em;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 1em;
+  gap: 1em;
 }

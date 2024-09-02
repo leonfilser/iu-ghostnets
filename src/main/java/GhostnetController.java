@@ -1,4 +1,6 @@
 import jakarta.inject.Named;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.view.ViewScoped;
 import java.io.Serializable;
 import jakarta.inject.Inject;
@@ -22,7 +24,6 @@ public class GhostnetController implements Serializable {
     }
 
     public void addNewGhostnet() {
-        newGhostnet.setId(webapp.getGhostnetList().size() + 1);
         newGhostnet.setStateUpdated(new Date());
         newGhostnet.setCurrentState("Gemeldet");
 

@@ -20,8 +20,8 @@
             <h2 class="home-subtitle">Geisternetze bergen - Meere bewahren</h2>
 
             <div class="cta-btn-container">
-                <p:button class="cta-btn-melden" value="Geisternetz Melden" outcome="melden"/>
-                <p:button class="cta-btn-bergen" value="Geisternetz Bergen" outcome="bergen"/>
+                <p:button class="cta-btn-melden" value="Geisternetz Melden" outcome="report"/>
+                <p:button class="cta-btn-bergen" value="Geisternetz Bergen" outcome="salvage"/>
             </div>
 
             <div class="toggle-container">
@@ -34,7 +34,7 @@
                         <h:outputText value="#{singleGhostnetItem.currentState}" />
                     </p:column>
 
-                    <p:column headerText="Geschätztes Volumen">
+                    <p:column headerText="Geschätzte Größe">
                         <h:outputText value="#{singleGhostnetItem.volume}" />m<sup>3</sup>
                     </p:column>
 

@@ -27,39 +27,23 @@ public class Webapp {
         EntityManager em = emf.createEntityManager();
 
         em.getTransaction().begin();
-        em.persist(ghostnet);
+        em.merge(ghostnet);
         em.getTransaction().commit();
         em.close();
     }
 
-    public List<Reporter> getReporterList() {
+    public List<User> getUserList() {
         EntityManager em = emf.createEntityManager();
-        Query q = em.createQuery("select r from Reporter r");
-        List<Reporter> reporterList = q.getResultList();
-        return reporterList;
+        Query q = em.createQuery("select u from User u");
+        List<User> userList = q.getResultList();
+        return userList;
     }
 
-    void addReporter(Reporter reporter) {
+    void addUser(User user) {
         EntityManager em = emf.createEntityManager();
 
         em.getTransaction().begin();
-        em.persist(reporter);
-        em.getTransaction().commit();
-        em.close();
-    }
-
-    public List<Salvager> getSalvagerList() {
-        EntityManager em = emf.createEntityManager();
-        Query q = em.createQuery("select s from Salvager s");
-        List<Salvager> salvagerList = q.getResultList();
-        return salvagerList;
-    }
-
-    void addSalvager(Salvager salvager) {
-        EntityManager em = emf.createEntityManager();
-
-        em.getTransaction().begin();
-        em.persist(salvager);
+        em.merge(user);
         em.getTransaction().commit();
         em.close();
     }
