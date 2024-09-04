@@ -1,19 +1,18 @@
 import jakarta.inject.Named;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.view.ViewScoped;
 import java.io.Serializable;
-import jakarta.inject.Inject;
-import java.util.Date;
+import java.util.List;
 
 @Named
 @ViewScoped
 public class GhostnetController implements Serializable {
 
     private Ghostnet newGhostnet = new Ghostnet();
+    private GhostnetDAO ghostnetDao = new GhostnetDAO();
 
-    @Inject
-    private Webapp webapp;
+    public GhostnetController() {
+
+    }
 
     public Ghostnet getNewGhostnet() {
         return newGhostnet;
@@ -23,11 +22,13 @@ public class GhostnetController implements Serializable {
         this.newGhostnet = newGhostnet;
     }
 
-    public void addNewGhostnet() {
-        newGhostnet.setStateUpdated(new Date());
-        newGhostnet.setCurrentState("Gemeldet");
+    public List<Ghostnet> getGhostnetList() {
+        return ghostnetDao.findAll();
+    }
 
-        webapp.addGhostnet(newGhostnet);
-        newGhostnet = new Ghostnet(); // Reset for the next entry
+    public String addNew() {
+        newGhostnet.setCurrentState("Gemeldet");
+        ghostnetDao.addNew(newGhostnet);
+        return "index?faces-redirect=true";
     }
 }

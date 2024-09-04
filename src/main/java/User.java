@@ -18,11 +18,8 @@ public class User implements Serializable {
     private String emailAdress;
     private String password;
 
-    @OneToMany(mappedBy = "reporter")  // Mapped by the 'reporter' field in Ghostnet
-    private List<Ghostnet> reportedGhostnets;
-
-    @OneToMany(mappedBy = "retriever")  // Mapped by the 'retriever' field in Ghostnet
-    private List<Ghostnet> retrievedGhostnets;
+    @OneToMany(mappedBy = "retriever")
+    private List<Ghostnet> mappedGhostnets;
 
     public User() {
 
@@ -76,19 +73,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public List<Ghostnet> getReportedGhostnets() {
-        return reportedGhostnets;
+    public List<Ghostnet> getMappedGhostnets() {
+        return mappedGhostnets;
     }
 
-    public void setReportedGhostnets(List<Ghostnet> reportedGhostnets) {
-        this.reportedGhostnets = reportedGhostnets;
-    }
-
-    public List<Ghostnet> getRetrievedGhostnets() {
-        return retrievedGhostnets;
-    }
-
-    public void setRetrievedGhostnets(List<Ghostnet> retrievedGhostnets) {
-        this.retrievedGhostnets = retrievedGhostnets;
+    public void setMappedGhostnets(List<Ghostnet> mappedGhostnets) {
+        this.mappedGhostnets = mappedGhostnets;
     }
 }

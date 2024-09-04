@@ -1,19 +1,18 @@
 import jakarta.inject.Named;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.view.ViewScoped;
 import java.io.Serializable;
-import jakarta.inject.Inject;
-import java.util.Date;
+import java.util.List;
 
 @Named
 @ViewScoped
 public class UserController implements Serializable {
 
     private User newUser = new User();
+    private UserDAO userDAO = new UserDAO();
 
-    @Inject
-    private Webapp webapp;
+    public UserController() {
+
+    }
 
     public User getNewUser() {
         return newUser;
@@ -23,8 +22,12 @@ public class UserController implements Serializable {
         this.newUser = newUser;
     }
 
-    public void addNewUser() {
-        webapp.addUser(newUser);
-        newUser = new User(); // Reset for the next entry
+    public List<User> getUserList() {
+        return userDAO.findAll();
+    }
+
+    public void addNew() {
+        System.out.println("Adding new user");
+        userDAO.addNew(newUser);
     }
 }

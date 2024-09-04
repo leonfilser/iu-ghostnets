@@ -1,66 +1,52 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<h:head>
-    <title>Login/Register</title>
-    <link rel="icon" type="image/x-icon" href="media/favicon.ico" /> 
-    <link rel="stylesheet" type="text/css" media="screen" href="style.css"/> 
-</h:head>
+    <h:head>
+        <title>Shea Shepherd - Geisternetz Melden</title>
+        <link rel="icon" type="image/x-icon" href="media/favicon.ico" />
+        <link rel="stylesheet" type="text/css" media="screen" href="style.css"/>
+    </h:head>
 
-<h:body>
+    <body>
+        <div class="main-container">
 
-    <div class="main-container"> 
+            <img class="home-logo" src="media/logo.png" alt="Shea Shepherd Logo"/>
 
-        <p:tabView>
-            <p:tab title="Login">
-                <h:form id="loginForm">
-                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank">
-                        <h:outputLabel for="loginEmail" value="Email:" />
-                        <p:inputText id="loginEmail" value="#{userController.loginEmail}" required="true" />
+            <h1 class="home-title">Neues Geisternetz melden</h1>
 
-                        <h:outputLabel for="loginPassword" value="Password:" />
-                        <p:password id="loginPassword" value="#{userController.loginPassword}" required="true" feedback="false" /> 
+            <h:form>
 
-                        <f:facet name="footer">
-                            <p:commandButton value="Login" action="#{userController.login}" update="loginForm" />
-                        </f:facet>
-                    </p:panelGrid>
+                <div class="form-row">
+                    <h:outputText value="Vorname:"/>
+                    <h:inputText id="Vorname" value="#{userController.newUser.firstName}" required="true"/>
+                </div>
 
-                    <p:messages id="loginMessages" showDetail="true" autoUpdate="true" />
-                </h:form>
-            </p:tab>
+                <div class="form-row">
+                    <h:outputText value="Nachname:"/>
+                    <h:inputText id="Nachname" value="#{userController.newUser.lastName}" required="true"/>
+                </div>
 
-            <p:tab title="Register">
-                <h:form id="registerForm">
-                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank">
-                        <h:outputLabel for="regFirstName" value="First Name:" />
-                        <p:inputText id="regFirstName" value="#{userController.newUser.firstName}" required="true" />
+                <div class="form-row">
+                    <h:outputText value="Telefonnummer:"/>
+                    <h:inputText id="Telefonnummer" value="#{userController.newUser.phoneNumber}" required="true"/>
+                </div>
 
-                        <h:outputLabel for="regLastName" value="Last Name:" />
-                        <p:inputText id="regLastName" value="#{userController.newUser.lastName}" required="true" />
+                <div class="form-row">
+                    <h:outputText value="Email:"/>
+                    <h:inputText id="Email" value="#{userController.newUser.emailAdress}" required="true"/>
+                </div>
 
-                        <h:outputLabel for="regEmail" value="Email:" />
-                        <p:inputText id="regEmail" value="#{userController.newUser.emailAdress}" required="true" />
-
-                        <h:outputLabel for="regPassword" value="Password:" />
-                        <p:password id="regPassword" value="#{userController.newUser.password}" required="true" feedback="false" /> 
-
-                        <f:facet name="footer">
-                            <p:commandButton value="Register" action="#{userController.addNewUser}" update="registerForm" />
-                        </f:facet>
-                    </p:panelGrid>
-
-                    <p:messages id="registerMessages" showDetail="true" autoUpdate="true" />
-                </h:form>
-            </p:tab>
-        </p:tabView>
-
-    </div> 
-
-</h:body>
-
+                <div class="form-row">
+                    <h:outputText value="Passwort:"/>
+                    <p:password id="Passwort" value="#{userController.newUser.password}" required="true"/>
+                </div>
+                
+                <p:commandButton class="cta-btn-melden" value="Neues Geisternetz registrieren" action="#{userController.addNew}" />
+            </h:form>
+        </div>
+    </body>
 </html>

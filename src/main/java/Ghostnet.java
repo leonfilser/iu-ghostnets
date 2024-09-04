@@ -3,11 +3,11 @@ import java.io.Serializable;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 import jakarta.persistence.Temporal;
-
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.ManyToOne;
 import java.util.Date;
 
 @Entity
@@ -19,19 +19,13 @@ public class Ghostnet implements Serializable {
     private String currentState;
     private double latitude;
     private double longitude;
-    private int volume;
+    private int size;
+    private String reporterPhoneNr;
 
     @Temporal(jakarta.persistence.TemporalType.DATE)
-    private Date reportDate;
-    @Temporal(jakarta.persistence.TemporalType.DATE)
-    private Date stateUpdated;
+    private Date sightingDate;
 
     @ManyToOne
-    @JoinColumn(name = "reporter_id")  // FK to the User who reported the Ghostnet
-    private User reporter;
-
-    @ManyToOne
-    @JoinColumn(name = "retriever_id")  // FK to the User who retrieved the Ghostnet
     private User retriever;
     
     public Ghostnet()
@@ -71,36 +65,28 @@ public class Ghostnet implements Serializable {
         this.longitude = longitude;
     }
 
-    public int getVolume() {
-        return volume;
+    public int getSize() {
+        return size;
     }
 
-    public void setVolume(int volume) {
-        this.volume = volume;
+    public void setSize(int size) {
+        this.size = size;
     }
 
-    public Date getReportDate() {
-        return reportDate;
+    public String getReporterPhoneNr() {
+        return reporterPhoneNr;
     }
 
-    public void setReportDate(Date reportDate) {
-        this.reportDate = reportDate;
+    public void setReporterPhoneNr(String reporterPhoneNr) {
+        this.reporterPhoneNr = reporterPhoneNr;
     }
 
-    public Date getStateUpdated() {
-        return stateUpdated;
+    public Date getSightingDate() {
+        return sightingDate;
     }
 
-    public void setStateUpdated(Date stateUpdated) {
-        this.stateUpdated = stateUpdated;
-    }
-
-    public User getReporter() {
-        return reporter;
-    }
-
-    public void setReporter(User reporter) {
-        this.reporter = reporter;
+    public void setSightingDate(Date sightingDate) {
+        this.sightingDate = sightingDate;
     }
 
     public User getRetriever() {
@@ -110,4 +96,5 @@ public class Ghostnet implements Serializable {
     public void setRetriever(User retriever) {
         this.retriever = retriever;
     }
+    
 }

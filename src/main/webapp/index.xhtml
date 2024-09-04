@@ -21,28 +21,34 @@
 
             <div class="cta-btn-container">
                 <p:button class="cta-btn-melden" value="Geisternetz Melden" outcome="report"/>
-                <p:button class="cta-btn-bergen" value="Geisternetz Bergen" outcome="salvage"/>
+                <p:button class="cta-btn-bergen" value="Geisternetz Bergen" outcome="retrieve"/>
+            </div>
+
+            <div class="cta-auth-container">
+                <h3> <a class="cta-auth-link" href="auth.xhtml">Einloggen/Registrieren</a> </h3>
             </div>
 
             <div class="toggle-container">
-                <h3>Letzte 5 Meldungen</h3>
+                <h3>Jüngste Sichtungen</h3>
             </div>
             
-            <h:form>
-                <p:dataTable value="#{webapp.ghostnetList}" var="singleGhostnetItem" sortOrder="ascending" sortBy="#{singleGhostnetItem.reportDate}">
+            <h:panelGroup id="indextable">
+                <p:dataTable value="#{ghostnetController.ghostnetList}" var="singleGhostnetItem" sortOrder="ascending" sortBy="#{singleGhostnetItem.sightingDate}" rows="10" >
+                    
+                    <p:column headerText="Gesichtet">
+                        <h:outputText value="#{singleGhostnetItem.sightingDate}">
+                            <f:convertDateTime pattern="dd.MM.yyyy" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Geschätzte Größe">
+                        <h:outputText value="#{singleGhostnetItem.size} m²" />
+                    </p:column>
+
                     <p:column headerText="Status">
                         <h:outputText value="#{singleGhostnetItem.currentState}" />
                     </p:column>
 
-                    <p:column headerText="Geschätzte Größe">
-                        <h:outputText value="#{singleGhostnetItem.volume}" />m<sup>3</sup>
-                    </p:column>
-
-                    <p:column headerText="Gemeldet">
-                        <h:outputText value="#{singleGhostnetItem.reportDate}">
-                            <f:convertDateTime pattern="dd.MM.yyyy" />
-                        </h:outputText>
-                    </p:column>
 
                     <p:column headerText="Koordinaten">
                         <h:outputLink value="https://maps.google.com/?q=#{singleGhostnetItem.latitude},#{singleGhostnetItem.longitude}" target="_blank">
@@ -50,12 +56,25 @@
                         </h:outputLink>
                     </p:column>
 
-                    <p:column headerText="Netz Bergen">
-                        <p:commandButton class="table-btn-bergen" value="Bergen" />
+                </p:dataTable>
+
+                <p:dataTable value="#{webapp.ghostnetList}" var="singleGhostnetItem" rendered="#{selectBooleanView.indexTableToggle}">
+                    <p:column headerText="Gesichtet">
+                        <h:outputText value="#{singleGhostnetItem.sightingDate}">
+                            <f:convertDateTime pattern="dd.MM.yyyy" />
+                        </h:outputText>
                     </p:column>
                 </p:dataTable>
-            </h:form>
+            </h:panelGroup>
 
+
+            <!-- AIzaSyByc5iV0jHwB75MGAAx6ZESPKq0qp-iPjs -->
+            <script src="https://maps.google.com/maps/api/js?key=AIzaSyByc5iV0jHwB75MGAAx6ZESPKq0qp-iPjs&amp;sensor=true"></script>
+
+            
+            <div class="card">
+                <p:gmap center="36.890257,30.707417" zoom="13" type="HYBRID" style="width:100%;height:400px" />
+            </div>
         </div>
     </h:body>
 </html>
