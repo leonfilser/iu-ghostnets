@@ -14,18 +14,23 @@
     <h:body>
         <div class="main-container">
 
-            <img class="home-logo" src="media/logo.png" alt="Shea Shepherd Logo"/>
+            <a href="index.xhtml"><img class="home-logo" src="media/logo.png" alt="Shea Shepherd Logo"/></a>
 
             <h1 class="home-title">Shea Shepherd</h1>
             <h2 class="home-subtitle">Geisternetze bergen - Meere bewahren</h2>
+            <h3 class="home-subtitle">
+                <h:outputText value="Willkommen #{sessionHandler.sessionUser.firstName}!" />
+            </h3>
 
             <div class="cta-btn-container">
                 <p:button class="cta-btn-melden" value="Geisternetz Melden" outcome="report"/>
-                <p:button class="cta-btn-bergen" value="Geisternetz Bergen" outcome="retrieve"/>
-            </div>
+                <h:panelGroup rendered="#{!sessionHandler.loggedIn}">
+                    <p:button class="cta-btn-bergen" value="Einloggen/Registrieren" outcome="auth"/>
+                </h:panelGroup>
 
-            <div class="cta-auth-container">
-                <h3> <a class="cta-auth-link" href="auth.xhtml">Einloggen/Registrieren</a> </h3>
+                <h:panelGroup rendered="#{sessionHandler.loggedIn}">
+                    <p:button class="cta-btn-bergen" value="Zum Dashboard" outcome="userdash"/>
+                </h:panelGroup>
             </div>
 
             <div class="toggle-container">
@@ -33,7 +38,7 @@
             </div>
             
             <h:panelGroup id="indextable">
-                <p:dataTable value="#{ghostnetController.ghostnetList}" var="singleGhostnetItem" sortOrder="ascending" sortBy="#{singleGhostnetItem.sightingDate}" rows="10" >
+                <p:dataTable value="#{ghostnetController.ghostnetList}" var="singleGhostnetItem" sortOrder="ascending" sortBy="#{singleGhostnetItem.sightingDate}" rows="5" >
                     
                     <p:column headerText="Gesichtet">
                         <h:outputText value="#{singleGhostnetItem.sightingDate}">

@@ -26,6 +26,14 @@ public class UserDAO {
         }
     }
 
+    public User findByEmail(String emailAdress) {
+        try (EntityManager em = emf.createEntityManager()) {
+            Query q = em.createQuery("select u from User u where u.emailAdress = :emailAdress");
+            q.setParameter("emailAdress", emailAdress);
+            return (User) q.getSingleResult();
+        }
+    }
+
     @PreDestroy
     public void close() {
         emf.close();

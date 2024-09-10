@@ -1,4 +1,6 @@
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+
 import java.io.Serializable;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +20,7 @@ public class User implements Serializable {
     private String emailAdress;
     private String password;
 
-    @OneToMany(mappedBy = "retriever")
+    @OneToMany(mappedBy = "retriever", fetch = FetchType.EAGER)
     private List<Ghostnet> mappedGhostnets;
 
     public User() {

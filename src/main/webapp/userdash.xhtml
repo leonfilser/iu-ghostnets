@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Shea Shepherd - Home</title>
+        <link rel="icon" type="image/x-icon" href="media/favicon.ico" />
+        <link rel="stylesheet" type="text/css" media="screen" href="style.css"/>
+    </h:head>
+
+    <h:body>
+        <div class="main-container">
+
+            <h3 class="home-subtitle">
+                <h:outputText value="Willkommen #{sessionHandler.sessionUser.firstName}!" />
+            </h3>
+            
+            <h:form>
+                <div class="form-row">
+                    <h:outputText value="Vorname"/>
+                    <p:inputText title="Vorname" required="true" id="firstName" value="#{sessionHandler.sessionUser.firstName}">
+
+                        <f:validateLength minimum="1" maximum="20" />
+                        <f:validateRegex pattern="^[A-ZÄÖÜ][a-zäöüßéèáàêîôû'-]*( [A-ZÄÖÜ][a-zäöüßéèáàêîôû'-]*)?$" />
+
+                    </p:inputText>
+                    
+                    <h:outputText value="Nachname"/>
+                    <p:inputText title="Nachname" required="true" id="lastName" value="#{sessionHandler.sessionUser.lastName}">
+
+                        <f:validateLength minimum="1" maximum="20" />
+                        <f:validateRegex pattern="^[A-ZÄÖÜ][A-Za-zäöüß'-]+(\s[A-ZÄÖÜ][A-Za-zäöüß'-]+)*(\-[A-ZÄÖÜ][A-Za-zäöüß'-]+)*$" />
+
+                    </p:inputText>
+
+                    <h:outputText value="Telefonnummer"/>
+                    <p:inputText title="Telefonnummer" required="true" id="phoneNumber" value="#{sessionHandler.sessionUser.phoneNumber}">
+
+                        <f:validateLength minimum="5" maximum="20" />
+                        <f:validateRegex pattern="^\+?(\d{1,3})?[\s.-]?\(?\d{1,4}\)?[\s.-]?\d{1,4}[\s.-]?\d{1,9}$" />
+
+                    </p:inputText>
+
+                    <h:outputText value="Email"/>
+                    <p:inputText title="Email" required="true" id="mailAdress" value="#{userController.user.emailAdress}"/>
+
+                    <h:outputText value="Passwort:"/>
+                    <p:password id="Passwort" value="#{userController.user.password}" required="true"/>
+
+                </div>
+            </h:form>
+
+            <h:panelGroup id="indextable">
+                <h2 class="home-subtitle">Ihre Geisternetze</h2>
+                <p:dataTable value="#{sessionHandler.sessionUser.mappedGhostnets}" lazy="false" var="singleGhostnetItem" sortOrder="ascending" sortBy="#{singleGhostnetItem.sightingDate}" rows="10" >
+                    <p:column headerText="Gesichtet">
+                        <h:outputText value="#{singleGhostnetItem.sightingDate}">
+                            <f:convertDateTime pattern="dd.MM.yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Geschätzte Größe">
+                        <h:outputText value="#{singleGhostnetItem.size} m²" />
+                    </p:column>
+                    <p:column headerText="Status">
+                        <h:outputText value="#{singleGhostnetItem.currentState}" />
+                    </p:column>
+                    <p:column headerText="Koordinaten">
+                        <h:outputLink value="https://maps.google.com/?q=#{singleGhostnetItem.latitude},#{singleGhostnetItem.longitude}" target="_blank">
+                            <h:outputText value="#{singleGhostnetItem.latitude}, #{singleGhostnetItem.longitude}" />
+                        </h:outputLink>
+                    </p:column>
+                    <p:column headerText="Bergen">
+                        <p:button value="Bergen"/>
+                    </p:column>
+                </p:dataTable>
+
+            <h2 class="home-subtitle">Nicht geborgen</h2>
+            <p:dataTable value="#{ghostnetController.ghostnetList}" lazy="false" var="singleGhostnetItem" sortOrder="ascending" sortBy="#{singleGhostnetItem.sightingDate}" rows="10" >
+                <p:column headerText="Gesichtet">
+                    <h:outputText value="#{singleGhostnetItem.sightingDate}">
+                        <f:convertDateTime pattern="dd.MM.yyyy" />
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Geschätzte Größe">
+                    <h:outputText value="#{singleGhostnetItem.size} m²" />
+                </p:column>
+                <p:column headerText="Status">
+                    <h:outputText value="#{singleGhostnetItem.currentState}" />
+                </p:column>
+                <p:column headerText="Koordinaten">
+                    <h:outputLink value="https://maps.google.com/?q=#{singleGhostnetItem.latitude},#{singleGhostnetItem.longitude}" target="_blank">
+                        <h:outputText value="#{singleGhostnetItem.latitude}, #{singleGhostnetItem.longitude}" />
+                    </h:outputLink>
+                </p:column>
+                <p:column headerText="Bergen">
+                    <p:button value="Bergen"/>
+                </p:column>
+            </p:dataTable>
+
+            <h2 class="home-subtitle">Von anderen Nutzern</h2>
+            <p:dataTable value="#{ghostnetController.ghostnetList}" lazy="false" var="singleGhostnetItem" sortOrder="ascending" sortBy="#{singleGhostnetItem.sightingDate}" rows="10" >
+            <p:column headerText="Gesichtet">
+                <h:outputText value="#{singleGhostnetItem.sightingDate}">
+                    <f:convertDateTime pattern="dd.MM.yyyy" />
+                </h:outputText>
+            </p:column>
+
+            <p:column headerText="Geschätzte Größe">
+                <h:outputText value="#{singleGhostnetItem.size} m²" />
+            </p:column>
+
+            <p:column headerText="Status">
+                <h:outputText value="#{singleGhostnetItem.currentState}" />
+            </p:column>
+
+
+            <p:column headerText="Koordinaten">
+                <h:outputLink value="https://maps.google.com/?q=#{singleGhostnetItem.latitude},#{singleGhostnetItem.longitude}" target="_blank">
+                    <h:outputText value="#{singleGhostnetItem.latitude}, #{singleGhostnetItem.longitude}" />
+                </h:outputLink>
+            </p:column>
+
+            <p:column headerText="Bergen">
+                <h:outputText value="#{singleGhostnetItem.retriever.firstName}, #{singleGhostnetItem.retriever.lastName}" />
+            </p:column>
+        </p:dataTable>
+            </h:panelGroup>
+
+
+        </div>
+    </h:body>
+</html>

@@ -7,19 +7,19 @@ import java.util.List;
 @ViewScoped
 public class UserController implements Serializable {
 
-    private User newUser = new User();
+    private User user = new User();
     private UserDAO userDAO = new UserDAO();
 
     public UserController() {
 
     }
 
-    public User getNewUser() {
-        return newUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setNewUser(User newUser) {
-        this.newUser = newUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<User> getUserList() {
@@ -28,6 +28,6 @@ public class UserController implements Serializable {
 
     public void addNew() {
         System.out.println("Adding new user");
-        userDAO.addNew(newUser);
+        userDAO.addNew(user);
     }
 }
