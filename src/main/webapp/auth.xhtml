@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
-        <title>Shea Shepherd - Geisternetz Melden</title>
+        <title>Shea Shepherd</title>
         <link rel="icon" type="image/x-icon" href="media/favicon.ico" />
         <link rel="stylesheet" type="text/css" media="screen" href="style.css"/>
     </h:head>
@@ -21,15 +21,15 @@
                     <h:form>
                         <div class="form-row">
                             <h:outputText value="Email:"/>
-                            <p:inputText id="Email" value="#{sessionHandler.emailAdress}" required="true"/>
+                            <p:inputText id="Email" value="#{userController.user.emailAddress}" required="true"/>
                         </div>
 
                         <div class="form-row">
                             <h:outputText value="Passwort:"/>
-                            <p:password id="Passwort" value="#{sessionHandler.password}" required="true"/>
+                            <p:password id="Passwort" value="#{userController.user.password}" required="true"/>
                         </div>
                         
-                        <p:commandButton value="Einloggen" action="#{sessionHandler.login}" />
+                        <p:commandButton value="Einloggen" action="#{userController.login}" />
                     </h:form>
                 </p:tab>
 
@@ -52,7 +52,7 @@
 
                         <div class="form-row">
                             <h:outputText value="Email:"/>
-                            <p:inputText id="Email" value="#{userController.user.emailAdress}" required="true"/>
+                            <p:inputText id="Email" value="#{userController.user.emailAddress}" required="true"/>
                         </div>
 
                         <div class="form-row">
@@ -60,7 +60,7 @@
                             <p:password id="Passwort" value="#{userController.user.password}" required="true"/>
                         </div>
                         
-                        <p:commandButton value="Registrieren" action="#{userController.addNew}" />
+                        <p:commandButton value="Registrieren" action="#{userController.register}" />
                     </h:form>
                 </p:tab>
             </p:tabView>

@@ -3,24 +3,22 @@ import java.io.Serializable;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.OneToMany;
-import java.util.List;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.persistence.ManyToOne;
 import java.util.Date;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Ghostnet implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
     private String currentState;
-    private double latitude;
-    private double longitude;
-    private int size;
-    private String reporterPhoneNr;
+    private Double latitude;
+    private Double longitude;
+    private Integer size;
+    private String reporterPhoneNumber;
 
     @Temporal(jakarta.persistence.TemporalType.DATE)
     private Date sightingDate;
@@ -33,11 +31,11 @@ public class Ghostnet implements Serializable {
 
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -49,36 +47,36 @@ public class Ghostnet implements Serializable {
         this.currentState = currentState;
     }
 
-    public double getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
-    public int getSize() {
+    public Integer getSize() {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(Integer size) {
         this.size = size;
     }
 
-    public String getReporterPhoneNr() {
-        return reporterPhoneNr;
+    public String getReporterPhoneNumber() {
+        return reporterPhoneNumber;
     }
 
-    public void setReporterPhoneNr(String reporterPhoneNr) {
-        this.reporterPhoneNr = reporterPhoneNr;
+    public void setReporterPhoneNumber(String reporterPhoneNumber) {
+        this.reporterPhoneNumber = reporterPhoneNumber;
     }
 
     public Date getSightingDate() {

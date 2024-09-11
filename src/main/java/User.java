@@ -1,3 +1,4 @@
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 
@@ -13,25 +14,26 @@ public class User implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private String emailAdress;
+    private String emailAddress;
     private String password;
 
     @OneToMany(mappedBy = "retriever", fetch = FetchType.EAGER)
     private List<Ghostnet> mappedGhostnets;
 
-    public User() {
+    public User()
+    {
 
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -59,12 +61,12 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getEmailAdress() {
-        return emailAdress;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
-    public void setEmailAdress(String emailAdress) {
-        this.emailAdress = emailAdress;
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
     public String getPassword() {

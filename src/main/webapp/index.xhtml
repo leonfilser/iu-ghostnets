@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
-        <title>Shea Shepherd - Home</title>
+        <title>Shea Shepherd</title>
         <link rel="icon" type="image/x-icon" href="media/favicon.ico" />
         <link rel="stylesheet" type="text/css" media="screen" href="style.css"/>
     </h:head>
@@ -18,12 +18,15 @@
 
             <h1 class="home-title">Shea Shepherd</h1>
             <h2 class="home-subtitle">Geisternetze bergen - Meere bewahren</h2>
-            <h3 class="home-subtitle">
-                <h:outputText value="Willkommen #{sessionHandler.sessionUser.firstName}!" />
-            </h3>
 
             <div class="cta-btn-container">
+
+                <h:panelGroup rendered="#{sessionHandler.loggedIn}">
+                    <h:outputText value="Willkommen, #{sessionHandler.user.firstName}!" />
+                </h:panelGroup>
+
                 <p:button class="cta-btn-melden" value="Geisternetz Melden" outcome="report"/>
+                
                 <h:panelGroup rendered="#{!sessionHandler.loggedIn}">
                     <p:button class="cta-btn-bergen" value="Einloggen/Registrieren" outcome="auth"/>
                 </h:panelGroup>
