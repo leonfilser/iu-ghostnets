@@ -1,5 +1,6 @@
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
@@ -22,14 +23,21 @@ public class UserController implements Serializable {
 
     }
 
+    @PostConstruct
+    public void init() {
+        if (sessionHandler.isLoggedIn()) {
+            user = userDAO.getUser(sessionHandler.getUserId());
+        }
+    }
+
     ////////////////////////////////////////////////////////////////////////////
 
     public String register() {
         if (userDAO.emailExists(user.getEmailAddress()) == false && userDAO.phoneNumberExists(user.getPhoneNumber()) == false) {
             String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
             user.setPassword(hashedPassword);
-            userDAO.register(user);
-            return "userdash.xhtml";
+            userDAO.setUser(user);
+            return "index?faces-redirect=true";
         }
         else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Email or phone number already exists!"));
@@ -38,23 +46,27 @@ public class UserController implements Serializable {
     }
 
     public String login() {
-        User temp = userDAO.findByEmail(user.getEmailAddress());
 
-        if (temp != null && BCrypt.checkpw(user.getPassword(), temp.getPassword())) {
+        Integer userId = userDAO.getIdByEmail(this.user.getEmailAddress());
+        User user = userDAO.getUser(userId);
+
+        if (user != null && BCrypt.checkpw(this.user.getPassword(), user.getPassword())) {
+            this.user = user;  // Assign the user object to the current session user
             sessionHandler.setLoggedIn(true);
-            sessionHandler.setUser(temp);
-            return "userdash.xhtml";
-        }
-        else {
+            sessionHandler.setUserId(this.user.getId());  // Set the user's ID in the session
+            return "userdash?faces-redirect=true";  // Redirect to user dashboard
+        } else {
+            // Add an error message if login fails
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Invalid email or password!"));
-            return null;
+            return null;  // Stay on the current page
         }
     }
 
     public String logout() {
+        System.out.println("Logged out");
         sessionHandler.setLoggedIn(false);
-        sessionHandler.setUser(null);
-        return "index.xhtml";
+        sessionHandler.setUserId(null);
+        return "index?faces-redirect=true";
     }
 
     ////////////////////////////////////////////////////////////////////////////

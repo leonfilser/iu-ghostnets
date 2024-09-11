@@ -1,9 +1,7 @@
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-
 import java.io.Serializable;
 import jakarta.persistence.Id;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.OneToMany;
@@ -22,7 +20,7 @@ public class User implements Serializable {
     private String password;
 
     @OneToMany(mappedBy = "retriever", fetch = FetchType.EAGER)
-    private List<Ghostnet> mappedGhostnets;
+    private List<Ghostnet> linkedGhostnets;
 
     public User()
     {
@@ -77,11 +75,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public List<Ghostnet> getMappedGhostnets() {
-        return mappedGhostnets;
+    public List<Ghostnet> getLinkedGhostnets() {
+        return linkedGhostnets;
     }
 
-    public void setMappedGhostnets(List<Ghostnet> mappedGhostnets) {
-        this.mappedGhostnets = mappedGhostnets;
+    public void setLinkedGhostnets(List<Ghostnet> linkedGhostnets) {
+        this.linkedGhostnets = linkedGhostnets;
     }
 }

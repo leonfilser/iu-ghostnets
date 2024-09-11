@@ -7,23 +7,31 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.util.Date;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.EnumType;
+
+// Entity class for the Ghostnet object
 
 @Entity
 public class Ghostnet implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    private String currentState;
+    private Integer id; //Auto generated ID for each Ghostnet
+    
+    @Enumerated(EnumType.STRING)
+    private GhostnetState currentState; //The current state of the Ghostnet (Gemeldet, Bergung Bevorstehend, Geborgen, Verschollen;)
+    
+    @Temporal(jakarta.persistence.TemporalType.DATE)
+    private Date sightingDate; //The date the Ghostnet was sighted
+
     private Double latitude;
     private Double longitude;
     private Integer size;
     private String reporterPhoneNumber;
 
-    @Temporal(jakarta.persistence.TemporalType.DATE)
-    private Date sightingDate;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User retriever;
     
     public Ghostnet()
@@ -39,12 +47,20 @@ public class Ghostnet implements Serializable {
         this.id = id;
     }
 
-    public String getCurrentState() {
+    public GhostnetState getCurrentState() {
         return currentState;
     }
 
-    public void setCurrentState(String currentState) {
+    public void setCurrentState(GhostnetState currentState) {
         this.currentState = currentState;
+    }
+
+    public Date getSightingDate() {
+        return sightingDate;
+    }
+
+    public void setSightingDate(Date sightingDate) {
+        this.sightingDate = sightingDate;
     }
 
     public Double getLatitude() {
@@ -79,14 +95,6 @@ public class Ghostnet implements Serializable {
         this.reporterPhoneNumber = reporterPhoneNumber;
     }
 
-    public Date getSightingDate() {
-        return sightingDate;
-    }
-
-    public void setSightingDate(Date sightingDate) {
-        this.sightingDate = sightingDate;
-    }
-
     public User getRetriever() {
         return retriever;
     }
@@ -94,5 +102,4 @@ public class Ghostnet implements Serializable {
     public void setRetriever(User retriever) {
         this.retriever = retriever;
     }
-    
 }

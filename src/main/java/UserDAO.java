@@ -42,21 +42,30 @@ public class UserDAO {
         }
     }
 
-    // Registers a new user
-    void register(User user) {
+    // Gets the User ID by searchring for the Emailadress
+    public Integer getIdByEmail(String emailAddress) {
+        try (EntityManager em = emf.createEntityManager()) {
+            Query q = em.createQuery("SELECT u.id FROM User u WHERE u.emailAddress = :emailAddress");
+            q.setParameter("emailAddress", emailAddress);
+            return (Integer) q.getSingleResult();
+        }
+    }
+
+    // Gets a single user by its ID
+    public User getUser(int id) {
+        try (EntityManager em = emf.createEntityManager()) {
+            Query q = em.createQuery("select u from User u where u.id = :id");
+            q.setParameter("id", id);
+            return (User) q.getSingleResult();
+        }
+    }
+
+    // Sets a new user in the database
+    public void setUser(User user) {
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
             em.merge(user);
             em.getTransaction().commit();
-        }
-    }
-
-    // Finds a user by email adress. Used for login 
-    public User findByEmail(String emailAddress) {
-        try (EntityManager em = emf.createEntityManager()) {
-            Query q = em.createQuery("select u from User u where u.emailAddress = :emailAddress");
-            q.setParameter("emailAddress", emailAddress);
-            return (User) q.getSingleResult();
         }
     }
     

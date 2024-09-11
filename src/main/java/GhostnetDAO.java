@@ -18,7 +18,7 @@ public class GhostnetDAO {
         }
     }
 
-    void addNew(Ghostnet ghostnet) {
+    public void addNew(Ghostnet ghostnet) {
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
             em.merge(ghostnet);
