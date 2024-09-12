@@ -19,7 +19,6 @@
             </h3>
             
             <h:form>
-                <div class="form-row">
                     <h:outputText value="Vorname"/>
                     <p:inputText title="Vorname" required="true" id="firstName" value="#{userController.user.firstName}">
 
@@ -49,9 +48,8 @@
 
                     <h:outputText value="Passwort:"/>
                     <p:password id="Passwort" value="#{userController.user.password}" required="true"/>
-                </div>
 
-                <p:commandButton value="Ausloggen" action="#{userController.logout}" />
+                <p:commandButton value="Ausloggen" action="#{userController.logoutUser}" />
 
             </h:form>
 
@@ -89,7 +87,7 @@
             <h:form>
                 <h2 class="home-subtitle">Nicht geborgen</h2>
 
-                <p:dataTable value="#{ghostnetController.ghostnetList}" lazy="false" var="singleGhostnetItem" sortOrder="ascending" sortBy="#{singleGhostnetItem.sightingDate}">
+                <p:dataTable value="#{ghostnetController.getGhostnetsByState(GEMELDET)}" lazy="false" var="singleGhostnetItem" sortOrder="ascending" sortBy="#{singleGhostnetItem.sightingDate}">
                     
                     <p:column headerText="Gesichtet">
                         <h:outputText value="#{singleGhostnetItem.sightingDate}">
@@ -122,7 +120,7 @@
             <h:form>
                 <h2 class="home-subtitle">Von anderen Nutzern</h2>
 
-                <p:dataTable value="#{ghostnetController.ghostnetList}" lazy="false" var="singleGhostnetItem" sortOrder="ascending" sortBy="#{singleGhostnetItem.sightingDate}" rows="10" >
+                <p:dataTable value="#{ghostnetController.reportedGhostnets}" lazy="false" var="singleGhostnetItem" sortOrder="ascending" sortBy="#{singleGhostnetItem.sightingDate}" rows="10" >
 
                     <p:column headerText="Gesichtet">
                         <h:outputText value="#{singleGhostnetItem.sightingDate}">

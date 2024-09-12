@@ -29,7 +29,7 @@
                             <p:password id="Passwort" value="#{userController.user.password}" required="true"/>
                         </div>
                         
-                        <p:commandButton value="Einloggen" action="#{userController.login}" />
+                        <p:commandButton value="Einloggen" action="#{userController.loginUser}" />
                     </h:form>
                 </p:tab>
 
@@ -60,7 +60,7 @@
                             <p:password id="Passwort" value="#{userController.user.password}" required="true"/>
                         </div>
                         
-                        <p:commandButton value="Registrieren" action="#{userController.register}" />
+                        <p:commandButton value="Registrieren" action="#{userController.registerUser}" />
                     </h:form>
                 </p:tab>
             </p:tabView>

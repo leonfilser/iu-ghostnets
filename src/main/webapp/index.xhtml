@@ -25,10 +25,10 @@
                     <h:outputText value="Willkommen, #{userController.user.firstName}!" />
                 </h:panelGroup>
 
-                <p:button class="cta-btn-melden" value="Geisternetz Melden" outcome="report"/>
+                <p:button class="cta-btn-melden" value="Geisternetz Melden" outcome="reportghostnet"/>
                 
                 <h:panelGroup rendered="#{!sessionHandler.loggedIn}">
-                    <p:button class="cta-btn-bergen" value="Einloggen/Registrieren" outcome="auth"/>
+                    <p:button class="cta-btn-bergen" value="Einloggen/Registrieren" outcome="userauth"/>
                 </h:panelGroup>
 
                 <h:panelGroup rendered="#{sessionHandler.loggedIn}">
@@ -41,7 +41,7 @@
             </div>
             
             <h:panelGroup id="indextable">
-                <p:dataTable value="#{ghostnetController.ghostnetList}" var="singleGhostnetItem" sortOrder="ascending" sortBy="#{singleGhostnetItem.sightingDate}" rows="5" >
+                <p:dataTable value="#{ghostnetController.reportedGhostnets}" var="singleGhostnetItem" sortOrder="ascending" sortBy="#{singleGhostnetItem.sightingDate}" rows="5" >
                     
                     <p:column headerText="Gesichtet">
                         <h:outputText value="#{singleGhostnetItem.sightingDate}">

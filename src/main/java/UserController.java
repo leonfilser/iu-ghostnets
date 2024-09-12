@@ -12,11 +12,13 @@ import org.mindrot.jbcrypt.BCrypt;
 @ViewScoped
 public class UserController implements Serializable {
 
-    private User user = new User();
-    private UserDAO userDAO = new UserDAO();
-
     @Inject
     private SessionHandler sessionHandler;
+
+    private UserDAO userDAO = new UserDAO();
+
+    private User user = new User();
+    private List<User> existingUsers = userDAO.userList();
 
     public UserController()
     {
@@ -26,46 +28,59 @@ public class UserController implements Serializable {
     @PostConstruct
     public void init() {
         if (sessionHandler.isLoggedIn()) {
-            user = userDAO.getUser(sessionHandler.getUserId());
+            for (User existingUser : existingUsers) {
+                if (existingUser.getId().equals(sessionHandler.getUserId())) {
+                    this.user = existingUser;
+                }
+            }
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////
 
-    public String register() {
-        if (userDAO.emailExists(user.getEmailAddress()) == false && userDAO.phoneNumberExists(user.getPhoneNumber()) == false) {
-            String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
-            user.setPassword(hashedPassword);
-            userDAO.setUser(user);
-            return "index?faces-redirect=true";
+    public String registerUser() {
+
+        for (User existingUser : existingUsers) {
+            if (existingUser.getEmailAddress().equals(user.getEmailAddress())) {
+                return "Ein Benutzer mit dieser E-Mail-Adresse existiert bereits.";
+            }
+            if (existingUser.getPhoneNumber().equals(user.getPhoneNumber())) {
+                return "Ein Benutzer mit dieser Telefonnummer existiert bereits.";
+            }
         }
-        else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Email or phone number already exists!"));
-            return null;
-        }
+
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+        userDAO.addUser(user);
+
+        return "index?faces-redirect=true";
+
     }
 
-    public String login() {
+    public String loginUser() {
 
-        Integer userId = userDAO.getIdByEmail(this.user.getEmailAddress());
-        User user = userDAO.getUser(userId);
+        for (User existingUser : existingUsers) {
+            if (existingUser.getEmailAddress().equals(user.getEmailAddress()) && BCrypt.checkpw(user.getPassword(), existingUser.getPassword())) {
+                this.user = existingUser;
 
-        if (user != null && BCrypt.checkpw(this.user.getPassword(), user.getPassword())) {
-            this.user = user;  // Assign the user object to the current session user
-            sessionHandler.setLoggedIn(true);
-            sessionHandler.setUserId(this.user.getId());  // Set the user's ID in the session
-            return "userdash?faces-redirect=true";  // Redirect to user dashboard
-        } else {
-            // Add an error message if login fails
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Invalid email or password!"));
-            return null;  // Stay on the current page
+                sessionHandler.setLoggedIn(true);
+                sessionHandler.setUserId(user.getId());
+
+                System.out.println("User " + user.getId() + " logged in.");
+
+                return "userdash?faces-redirect=true";
+            }
         }
+
+        return null;
     }
 
-    public String logout() {
-        System.out.println("Logged out");
+    public String logoutUser() {
+
         sessionHandler.setLoggedIn(false);
         sessionHandler.setUserId(null);
+
+        System.out.println("User " + user.getId() + " logged out.");
+
         return "index?faces-redirect=true";
     }
 

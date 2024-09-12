@@ -2,6 +2,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.faces.view.ViewScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.checkerframework.checker.units.qual.s;
@@ -10,12 +11,13 @@ import org.checkerframework.checker.units.qual.s;
 @ViewScoped
 public class GhostnetController implements Serializable {
 
-    private Ghostnet ghostnet = new Ghostnet();
-    private GhostnetDAO ghostnetDao = new GhostnetDAO();
-    private UserDAO userDAO = new UserDAO();
-
     @Inject
-    private SessionHandler sessionHandler;
+    private UserController userController;
+
+    private GhostnetDAO ghostnetDao = new GhostnetDAO();
+
+    private Ghostnet ghostnet = new Ghostnet();
+    private List<Ghostnet> reportedGhostnets = ghostnetDao.ghostnetList();
 
     public GhostnetController()
     {
@@ -24,23 +26,34 @@ public class GhostnetController implements Serializable {
 
     ////////////////////////////////////////////////////////////////////////////
 
-    public List<Ghostnet> getGhostnetList() {
-        return ghostnetDao.findAll();
-    }
-
-    public String addNew() {
+    public String addGhostnet() {
         ghostnet.setCurrentState(GhostnetState.GEMELDET);
-        ghostnetDao.addNew(ghostnet);
+        ghostnetDao.addGhostnet(ghostnet);
+
         return "index?faces-redirect=true";
     }
 
-    public void addRetriever(Ghostnet ghostnet) {
-        User user = userDAO.getUser(sessionHandler.getUserId());
-        ghostnet.setRetriever(user);
+    public void addGhostnetRetriever(Ghostnet ghostnet) {
+
+        User retriever = userController.getUser();
+
+        ghostnet.setRetriever(retriever);
         ghostnet.setCurrentState(GhostnetState.BERGUNG_BEVORSTEHEND);
-        ghostnetDao.addNew(ghostnet);
+        ghostnetDao.updateGhostnet(ghostnet);
     }
 
+    public List<Ghostnet> getGhostnetsByState(String state) {
+
+        List<Ghostnet> filteredGhostnets = new ArrayList<>();
+
+        for (Ghostnet reportedGhostnet : reportedGhostnets) {
+            if (reportedGhostnet.getCurrentState().toString().equals(state)) {
+                filteredGhostnets.add(reportedGhostnet);
+            }
+        }
+
+        return filteredGhostnets;
+    }
 
     ////////////////////////////////////////////////////////////////////////////
 
@@ -50,5 +63,9 @@ public class GhostnetController implements Serializable {
 
     public void setGhostnet(Ghostnet ghostnet) {
         this.ghostnet = ghostnet;
+    }
+
+    public List<Ghostnet> getReportedGhostnets() {
+        return reportedGhostnets;
     }
 }
