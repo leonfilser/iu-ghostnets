@@ -1,93 +1,109 @@
+
+/*-------------------- Global Settings --------------------*/
+
 :root{
-  --primary-color: #1B3B46;
-  --secondary-color: #A3C6CC;
-  --background-color: #f9f9f9;
+  /*Default Colors*/
+  --primary-color: #1B3B46 !important;
+  --secondary-color: #A3C6CC !important;
+  --background-color: #f9f9f9 !important;
 }
 
 body {
-  display: flex;
-  justify-content: center;
-  background-color: var(--background-color); /*Ändert die Hintergrundfarbe der Seite*/
+  /*Main Background Color for alle Pages*/
+  background-color: var(--background-color);
 
-  /*Ändert die Standardschriftart und -farbe für alle Elemente*/
+  /*Global Font Settings*/
   font-family: 'Roboto', sans-serif;
   color: var(--primary-color);
 }
 
+/*Main Container that should contain all other page elements
+  Used to center all elements horizontally and vertically*/
 .main-container {
   display: flex;
   flex-direction: column;
+  min-height: 100%;
   align-items: center;
-  max-width: 1200px;
   justify-content: center;
+  max-width: 1200px;
+  margin:0 auto;
 }
 
-img.home-logo {
-  width: 350px;
-  margin-top: 4em;
-  margin-bottom: 4em;
-}
-
-h1.home-title {
+h1 {
   font-size: 5.5em;
   font-weight: 900;
-  margin: 0;
 }
 
-h2.home-subtitle {
+h2 {
   font-size: 2.2em;
   font-weight: 500;
-  margin: 0;
 }
 
-div.cta-btn-container {
-  display: flex;
-  gap: 20px; /* Space between buttons */
-  margin-top: 4em;
+h3 {
+  font-size: 1.5em;
 }
 
 /*Ändert das Standarddesign der Primefaces Button*/
-button.cta-btn-bergen, button.cta-btn-melden.ui-state-hover, button.cta-btn-melden.ui-state-active {
+button.secondary-button, button.primary-button.ui-state-hover, button.primary-button.ui-state-active {
   border: 2px solid var(--primary-color);
   border-radius: 10px;
   background: var(--secondary-color);
   color: var(--primary-color);
   padding: 0.5em;
   font-weight: 500;
+  height: fit-content;
 }
 
 /*Ändert das Standarddesign der Primefaces Button beim hovern*/
-button.cta-btn-melden, button.cta-btn-bergen.ui-state-hover, button.cta-btn-bergen.ui-state-active {
+button.primary-button, button.secondary-button.ui-state-hover, button.secondary-button.ui-state-active {
   border: 2px solid var(--primary-color);
   border-radius: 10px;
   background: var(--primary-color);
   color: var(--secondary-color);
   padding: 0.5em;
   font-weight: 500;
+  height: fit-content;
 }
 
-cta-auth-container {
-  margin-bottom: 4em;
+button.small-button, button.small-button.ui-state-hover, button.small-button.ui-state-active {
+  font-size: 12px;
+  padding: 2px;
+  margin: 2px;
+  border: 2px solid var(--primary-color);
+  border-radius: 10px;
+  padding: 0.5em;
+  font-weight: 500;
+  height: fit-content;
 }
 
-.cta-auth-link {
-  color: var(--secondary-color);
-  font-size: 1em;
-  font-weight: 400;
-}
 
-div.home-infotext{
-  font-size: 1.2em;
-  max-width: 60%;
-  text-align: center;
-}
-
-.toggle-container{
+.submit-button-container{
   display: flex;
-  width: 100%;
+  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  margin-top: 1em;
 }
+
+/*-------------------- Global Header Settings --------------------*/
+
+.header-container {
+  display: flex;
+  flex-direction: row; /* Items horizontal anordnen */
+  justify-content: center; /* Horizontales Zentrieren */
+  align-items: center; /* Vertikales Zentrieren auf der gleichen Höhe */
+  margin: 4em;
+}
+
+.header-logo {
+  width: 125px;
+}
+
+.header-title {
+  font-size: 2.5em;
+  font-weight: 600;
+}
+
+/*-------------------- Global Table Settings --------------------*/
 
 thead tr th.ui-state-default{
   background: var(--primary-color);
@@ -98,27 +114,166 @@ tbody.ui-datatable-data > tr{
   background: var(--secondary-color) !important;
 }
 
-button.table-btn-bergen{
-  border: 2px solid var(--primary-color);
-  border-radius: 7px;
-  background: var(--primary-color);
-  padding-left: 1em;
-  padding-right: 1em;
+/*-------------------- Index/Home Page Settings --------------------*/
+
+img.home-logo {
+  width: 350px;
+  margin-top: 4em;
+  margin-bottom: 4em;
 }
 
-button.table-btn-bergen.ui-state-hover, button.table-btn-bergen.ui-state-active{
-  border: 2px solid var(--primary-color);
-  border-radius: 7px;
-  color: var(--primary-color);
-  background: var(--secondary-color);
-  padding-left: 1em;
-  padding-right: 1em;
+h1.home-title {
+  margin: 0;
 }
 
-.form-row {
+h2.home-subtitle {
+  margin: 0 0 0.5em 0;
+}
+
+div.home-button-container {
+  display: flex;
+  gap: 20px; /* Space between buttons */
+  margin-bottom: 4em;
+}
+
+.worldmap-container {
+  width: 100%;
+  height: 600px;
+  position: relative;
+  overflow: hidden;
+  border: solid;
+  border-radius: 10px;
+  border-color: var(--primary-color);
+  border-width: 2px;
+  margin-bottom: 4em;
+}
+
+/*-------------------- Report Page Settings --------------------*/
+
+.report-grid{
+  background-color: var(--secondary-color);
+  border: solid;
+  padding: 2em 1em;
+  border-radius: 7px;
+  border-width: 2px;
+}
+
+button.ui-datepicker-trigger {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+button.ui-datepicker.trigger .ui-button.ui-state-hover {
+  background-color: var(--secondary-color);
+  border-color: var(--primary-color);
+}
+
+/*-------------------- Auth Page Settings --------------------*/
+
+/* Apply background color and justify content to the tabs navigation */
+body .ui-tabs .ui-tabs-nav {
+  justify-content: center;
+  background-color: var(--primary-color);
+  border-radius: 7px 7px 0 0;
+}
+
+/* Ensure all tab headers have the same background color */
+body .ui-tabs .ui-tabs-nav li.ui-tabs-header {
+  background-color: inherit !important;
+}
+
+
+body .ui-tabs .ui-tabs-nav li.ui-tabs-header.ui-state-active a {
+  color: white;
+}
+
+body .ui-tabs .ui-tabs-panels {
+  background-color: var(--secondary-color);
+  border-radius: 0 0 7px 7px;
+  padding: 1em;
+}
+
+body .ui-tabs.ui-tabs-top>.ui-tabs-nav:before {
+  content: none;
+}
+
+body .ui-tabs.ui-tabs-top>.ui-tabs-nav li.ui-tabs-header.ui-state-active {
+  border-color: var(--secondary-color)
+}
+
+body .ui-tabs.ui-tabs-top>.ui-tabs-nav li.ui-tabs-header.ui-state-hover {
+  border-color: var(--secondary-color)
+}
+
+body .ui-tabs.ui-tabs-top>.ui-tabs-nav li.ui-tabs-header {
+  border-color: var(--secondary-color)
+}
+
+/*-------------------- Userdash Page Settings --------------------*/
+
+.userdash-welcome {
+  width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 4em;
+  margin-top: 4em;
+  border-bottom: solid;
+  border-color: var(--primary-color);
+  border-width: 7px;
   align-items: center;
-  margin: 1em;
-  gap: 1em;
+}
+
+.currentState {
+  padding: 3px 8px;
+  border-radius: 3px;
+}
+
+button.ghostnet-retrieved {
+  color: #256029;
+  border-color: #256029;
+  width: 49%;
+}
+
+button.ghostnet-retrieved.ui-state-hover, button.ghostnet-retrieved.ui-state-active {
+  background-color: #c8e6c9;
+}
+
+button.abort-retrieval {
+  background-color: #ffd8b2;
+  color: #805b36;
+  border-color: #805b36;
+  width: 49%;
+}
+
+button.mark-lost {
+  border-color: #c63737;
+  background-color: #ffcdd2;
+  color: #c63737;
+  width: 49%;
+}
+
+button.contact-reporter {
+  border-color: #23547b;
+  background-color: #b3e5fc;
+  color: #23547b;
+  width: 49%;
+}
+
+.currentState.state-GEMELDET{
+  color: #23547b;
+  background-color: #b3e5fc;
+}
+.currentState.state-BERGUNG_BEVORSTEHEND{
+  color: #805b36;
+  background-color: #ffd8b2;
+}
+.currentState.state-GEBORGEN{
+  color: #256029;
+  background-color: #c8e6c9;
+
+}
+.currentState.state-VERSCHOLLEN{
+  color: #c63737;
+  background-color: #ffcdd2;
 }

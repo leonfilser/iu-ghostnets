@@ -16,55 +16,139 @@
 
             <h2>Einloggen/Registrieren</h2>
 
-            <p:tabView> <!-- TabView with two tabs: Registration and Login -->
+            <p:tabView class="auth-tabview">
+                <!-- Login Tab -->
                 <p:tab title="Einloggen">
-                    <h:form>
-                        <div class="form-row">
-                            <h:outputText value="Email:"/>
-                            <p:inputText id="Email" value="#{userController.user.emailAddress}" required="true"/>
-                        </div>
+                    <h:form id="loginForm">
+                        <h:panelGrid columns="3" cellpadding="5">
+                            
 
-                        <div class="form-row">
-                            <h:outputText value="Passwort:"/>
-                            <p:password id="Passwort" value="#{userController.user.password}" required="true"/>
+                            <h:outputText value="Email"/>
+                            <p:inputText 
+                                title="Email" 
+                                required="true" 
+                                id="emailAddress"
+                                value="#{userController.user.emailAddress}"
+                                requiredMessage="Bitte geben Sie Ihre E-Mail-Adresse ein."
+                                validator="#{userValidator.loginValidateEmail}"
+                                type="email"/>
+                            <h:message for="emailAddress" style="color:red" />
+
+
+                            <h:outputText value="Passwort"/>
+                            <p:password 
+                                title="Passwort" 
+                                required="true" 
+                                id="password"
+                                value="#{userController.user.password}"
+                                requiredMessage="Bitte geben Sie Ihr Passwort ein."
+                                validator="#{userValidator.loginValidatePassword}"
+                                type="password"/>
+                            <h:message for="password" style="color:red" />
+                        </h:panelGrid>
+
+
+                        <div class="submit-button-container">
+                            <p:button class="secondary-button" value="Zurück" outcome="index"/>
+                            <p:commandButton class="primary-button" value="Einloggen" 
+                                             action="#{userController.loginUser}"  
+                                             ajax="true" update="loginForm" />
                         </div>
-                        
-                        <p:commandButton value="Einloggen" action="#{userController.loginUser}" />
                     </h:form>
                 </p:tab>
 
-                <p:tab title="Registrieren"> <!-- Registration Tab -->
-                    <h:form>
-                        <div class="form-row">
-                            <h:outputText value="Vorname:"/>
-                            <p:inputText id="Vorname" value="#{userController.user.firstName}" required="true"/>
-                        </div>
+                <!-- Registration Tab -->
+                <p:tab title="Registrieren">
+                    <h:form id="registerForm">
+                        <h:panelGrid columns="3" cellpadding="5">
+                            
 
-                        <div class="form-row">
-                            <h:outputText value="Nachname:"/>
-                            <p:inputText id="Nachname" value="#{userController.user.lastName}" required="true"/>
-                        </div>
+                            <h:outputText value="Vorname"/>
+                            <p:inputText 
+                                title="Vorname" 
+                                required="true" 
+                                id="firstName"
+                                value="#{userController.user.firstName}"
+                                requiredMessage="Bitte geben Sie Ihren Vornamen ein."
+                                validatorMessage="Bitte geben Sie einen gültigen Vornamen ein (z.B. Max)."
+                                type="text">
+                                <f:validateLength minimum="2" maximum="20" />
+                                <f:validateRegex pattern="^[A-ZÄÖÜ][a-zäöüßéèàëêîï'-]+$" />
+                            </p:inputText>
+                            <h:message for="firstName" style="color:red" />
 
-                        <div class="form-row">
-                            <h:outputText value="Telefonnummer:"/>
-                            <p:inputText id="Telefonnummer" value="#{userController.user.phoneNumber}" required="true"/>
-                        </div>
 
-                        <div class="form-row">
-                            <h:outputText value="Email:"/>
-                            <p:inputText id="Email" value="#{userController.user.emailAddress}" required="true"/>
-                        </div>
+                            <h:outputText value="Nachname"/>
+                            <p:inputText 
+                                title="Nachname" 
+                                required="true" 
+                                id="lastName"
+                                value="#{userController.user.lastName}"
+                                requiredMessage="Bitte geben Sie Ihren Nachnamen ein."
+                                validatorMessage="Bitte geben Sie einen gültigen Nachnamen ein (z.B. Mustermann)."
+                                type="text">
+                                <f:validateLength minimum="2" maximum="20" />
+                                <f:validateRegex pattern="^[A-ZÄÖÜ][a-zäöüßéèàëêîï'-]*( [A-ZÄÖÜ][a-zäöüßéèàëêîï'-]+)*$" />
+                            </p:inputText>
+                            <h:message for="lastName" style="color:red" />
 
-                        <div class="form-row">
-                            <h:outputText value="Passwort:"/>
-                            <p:password id="Passwort" value="#{userController.user.password}" required="true"/>
+
+                            <h:outputText value="Telefonnummer"/>
+                            <p:inputText 
+                                title="Telefonnummer" 
+                                required="true" 
+                                id="phoneNumber"
+                                value="#{userController.user.phoneNumber}"
+                                requiredMessage="Bitte geben Sie Ihre Telefonnummer ein."
+                                validator="#{userValidator.registerValidatePhoneNumber}"
+                                type="tel">
+                                <f:validateLength minimum="5" maximum="20" />
+                                <f:validateRegex pattern="^\+?[0-9]{1,3}?[-. ]?(\(?\d{1,4}\)?)?[-. ]?\d{1,4}[-. ]?\d{1,4}[-. ]?\d{1,9}$" />
+                            </p:inputText>
+                            <h:message for="phoneNumber" style="color:red" />
+
+
+                            <h:outputText value="Email"/>
+                            <p:inputText 
+                                title="Email" 
+                                required="true" 
+                                id="emailAddress"
+                                value="#{userController.user.emailAddress}"
+                                requiredMessage="Bitte geben Sie Ihre Email Adresse ein."
+                                validator="#{userValidator.registerValidateEmailAddress}"
+                                type="email">
+                                <f:validateLength minimum="5" maximum="50" />
+                                <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
+                            </p:inputText>
+                            <h:message for="emailAddress" style="color:red"/>
+
+
+                            <h:outputText value="Passwort"/>
+                            <p:password 
+                                title="Passwort" 
+                                required="true" 
+                                id="password"
+                                value="#{userController.user.password}"
+                                requiredMessage="Bitte vergeben Sie ein Passwort."
+                                validatorMessage="Bitte vergeben Sie ein Passwort mit mindestens 8 Zeichen, 1 Kleinbuchstabe, 1 Großbuchstabe, 1 Zahl und 1 Sonderzeichen."
+                                type="password">
+                                <f:validateLength minimum="8" />
+                                <f:validateRegex pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&amp;])[A-Za-z\d@$!%*?&amp;]{8,}$" />
+                            </p:password>
+                            <h:message for="password" style="color:red" />
+                        </h:panelGrid>
+
+
+                        <div class="submit-button-container">
+                            <p:button class="secondary-button" value="Zurück" outcome="index"/>
+                            <p:commandButton class="primary-button" value="Registrieren" 
+                                             action="#{userController.registerUser}" 
+                                             ajax="true" update="registerForm"/>
                         </div>
-                        
-                        <p:commandButton value="Registrieren" action="#{userController.registerUser}" />
                     </h:form>
                 </p:tab>
             </p:tabView>
-            <p:button value="Zurück" outcome="index"/>
+
         </div>
     </body>
 </html>

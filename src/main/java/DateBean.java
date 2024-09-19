@@ -2,20 +2,23 @@ import jakarta.inject.Named;
 import jakarta.enterprise.context.RequestScoped;
 import java.time.LocalDate;
 
- /**
-  * Gets the current date on initialization (on request) and provides it to the
-  * report.xhtml file to make sure the sightingDate of a Ghostnet is not in the future
-  */
+/**
+ * DateBean class
+ * Provides the current date at the time of request and is used in report.xhtml
+ * to ensure the sightingDate of a Ghostnet is not set in the future.
+ */
 
-@Named  
+@Named
 @RequestScoped
 public class DateBean {
 
+    // The current date, initialized at the time of request
     private final LocalDate currentDate = LocalDate.now();
 
+    // Getter method for the current date
     public LocalDate getCurrentDate() {
         return currentDate;
     }
 
-    // No setter because the currentDate should not be changed
+    // No setter method, as currentDate should remain constant
 }

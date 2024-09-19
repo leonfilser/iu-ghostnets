@@ -1,8 +1,12 @@
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.SystemEvent;
+import jakarta.faces.validator.ValidatorException;
 import jakarta.faces.view.ViewScoped;
 import java.io.Serializable;
 import java.util.List;
@@ -16,7 +20,7 @@ public class UserController implements Serializable {
     private SessionHandler sessionHandler;
 
     private UserDAO userDAO = new UserDAO();
-
+    
     private User user = new User();
     private List<User> existingUsers = userDAO.userList();
 
@@ -40,15 +44,7 @@ public class UserController implements Serializable {
 
     public String registerUser() {
 
-        for (User existingUser : existingUsers) {
-            if (existingUser.getEmailAddress().equals(user.getEmailAddress())) {
-                return "Ein Benutzer mit dieser E-Mail-Adresse existiert bereits.";
-            }
-            if (existingUser.getPhoneNumber().equals(user.getPhoneNumber())) {
-                return "Ein Benutzer mit dieser Telefonnummer existiert bereits.";
-            }
-        }
-
+        user.setEmailAddress(user.getEmailAddress().trim().toLowerCase());
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         userDAO.addUser(user);
 
@@ -56,30 +52,35 @@ public class UserController implements Serializable {
 
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+
     public String loginUser() {
 
         for (User existingUser : existingUsers) {
-            if (existingUser.getEmailAddress().equals(user.getEmailAddress()) && BCrypt.checkpw(user.getPassword(), existingUser.getPassword())) {
+            if (existingUser.getEmailAddress().trim().equalsIgnoreCase(user.getEmailAddress().trim()) 
+                && BCrypt.checkpw(user.getPassword(), existingUser.getPassword())) {
+    
                 this.user = existingUser;
-
                 sessionHandler.setLoggedIn(true);
                 sessionHandler.setUserId(user.getId());
-
+    
                 System.out.println("User " + user.getId() + " logged in.");
-
+    
                 return "userdash?faces-redirect=true";
             }
         }
-
+    
         return null;
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+
     public String logoutUser() {
 
-        sessionHandler.setLoggedIn(false);
         sessionHandler.setUserId(null);
+        sessionHandler.setLoggedIn(false);
 
-        System.out.println("User " + user.getId() + " logged out.");
+        user = new User();
 
         return "index?faces-redirect=true";
     }
@@ -92,5 +93,9 @@ public class UserController implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<User> getExistingUsers() {
+        return existingUsers;
     }
 }
