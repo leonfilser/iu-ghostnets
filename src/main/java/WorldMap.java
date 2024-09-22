@@ -43,8 +43,7 @@ public class WorldMap implements Serializable {
     }
 
     public String getGoogleMapsApiKey() {
-        System.out.println("Google Maps API Key: " + googleMapsApiKey);
-        return System.getenv("GOOGLE_MAPS_API_KEY");
+        return googleMapsApiKey;
     }
 
     public MapModel<Long> getMarkerModel() {
