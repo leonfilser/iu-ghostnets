@@ -14,113 +14,158 @@
     <h:body>
         <div class="main-container">
 
-            <!-- Logo and Home Button -->
-            <a href="index.xhtml">
-                <img class="header-logo" src="media/logo.png" alt="Shea Shepherd Logo"/>
-            </a>
-
             <!-- User Dashboard for Logged-in Users -->
             <h:panelGroup rendered="#{sessionHandler.loggedIn}">
 
-                <div class="userdash-welcome">
-                    <p:button class="secondary-button" value="Home" outcome="index"/>
+                <div class="userdash-header">
+                    <h2>Übersicht Ihrer Geisternetze</h2>
 
-                    <h2>
-                        <h:outputText value="Willkommen #{userController.user.firstName} #{userController.user.lastName}!" />
-                    </h2>
-
-                    <h:form>
-                        <p:commandButton class="primary-button" value="Ausloggen" action="#{userController.logoutUser}" />
+                    <!-- Logout Button -->
+                    <h:form class="userdash-header-form">
+                        <p:button
+                            class="secondary-button big-button"
+                            icon="pi pi-home"
+                            iconPos="left"
+                            value="Home"
+                            outcome="index"/>
+                                
+                        <p:commandButton
+                            class="primary-button big-button"
+                            icon="pi pi-sign-out"
+                            iconPos="right"
+                            value="Ausloggen"
+                            action="#{userController.logoutUser}" />
                     </h:form>
                 </div>
 
-                <!-- User's Ghostnets -->
-                <h2 class="home-subtitle">Ihre Geisternetze</h2>
+                <!-- Ghostnet Table for Logged-in User -->
+                <h:form id="ghostnetForm">
+                    <p:dataTable value="#{ghostnetController.getGhostnetsByLoggedinUser()}" var="singleGhostnetItem"
+                                 rows="5" paginator="true" paginatorPosition="bottom">
 
-                <h:form id="ghostnetTable">
-                    <p:dataTable value="#{ghostnetController.getGhostnetsByLoggedinUser()}" lazy="false" var="singleGhostnetItem"
-                                 sortOrder="ascending" sortBy="#{singleGhostnetItem.sightingDate}" rows="5"
-                                 paginator="true" paginatorPosition="bottom">
-                        
-                        <p:column headerText="Sichtung" width="10%" sortBy="#{singleGhostnetItem.sightingDate}">
+                        <!-- Sighting Date Column -->
+                        <p:column headerText="Sichtung">
                             <h:outputText value="#{singleGhostnetItem.sightingDate}">
                                 <f:convertDateTime pattern="dd.MM.yyyy" />
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Größe" width="10%" sortBy="#{singleGhostnetItem.size}">
+                        <!-- Size Column -->
+                        <p:column headerText="Größe">
                             <h:outputText value="#{singleGhostnetItem.size} m²" />
                         </p:column>
 
-                        <p:column headerText="Status" width="20%" sortBy="#{singleGhostnetItem.currentState}">
-                            <span class="currentState state-#{singleGhostnetItem.currentState}">
-                                #{singleGhostnetItem.currentState.displayName}
+                        <!-- Status Column -->
+                        <p:column headerText="Status">
+                            <span class="currentstate currentstate-#{singleGhostnetItem.currentState}">
+                                <h:outputText value="#{singleGhostnetItem.currentState.displayName}" />
                             </span>
                         </p:column>
-                        
-                        <p:column headerText="Koordinaten" width="15%">
-                            <p:button class="primary-button small-button" value="Auf Maps ansehen"
-                                      onclick="window.open('https://maps.google.com/?q=#{singleGhostnetItem.latitude},#{singleGhostnetItem.longitude}', '_blank')" />
+
+                        <!-- Coordinates Column -->
+                        <p:column headerText="Koordinaten">
+                            <a href="https://maps.google.com/?q=#{singleGhostnetItem.latitude},#{singleGhostnetItem.longitude}" 
+                               class="primary-button small-button" target="_blank">
+                                Auf Maps ansehen
+                            </a>
                         </p:column>
 
-                        <p:column headerText="Aktion" width="45%">
-                            <p:commandButton class="small-button ghostnet-retrieved" value="Geisternetz geborgen"
-                                             icon="pi pi-check" iconPos="right"
-                                             action="#{ghostnetController.finishRetrievalOfGhostnet(singleGhostnetItem)}"
-                                             ajax="true" update="ghostnetTable"/>
-                            <p:commandButton class="small-button contact-reporter" value="Melder kontaktieren"
-                                             icon="pi pi-times" iconPos="right"
-                                             action="#{ghostnetController.abortRetrievalOfGhostnet(singleGhostnetItem)}"
-                                             ajax="true" update="ghostnetTable"/>
-                            <p:commandButton class="small-button abort-retrieval" value="Bergung abbrechen"
-                                             icon="pi pi-times" iconPos="right"
-                                             action="#{ghostnetController.abortRetrievalOfGhostnet(singleGhostnetItem)}"
-                                             ajax="true" update="ghostnetTable"/>
-                            <p:commandButton class="small-button mark-lost" value="Als verschollen markieren"
-                                             icon="pi pi-flag" iconPos="right"
-                                             action="#{ghostnetController.markGhostnetAsLost(singleGhostnetItem)}"
-                                             ajax="true" update="ghostnetTable"/>
+                        <!-- Action Buttons -->
+                        <p:column headerText="Aktion">
+                            <p:commandButton
+                                class="icon-button green-button"
+                                icon="pi pi-check"
+                                title="Geisternetz geborgen"
+                                action="#{ghostnetController.finishRetrievalOfGhostnet(singleGhostnetItem)}"
+                                ajax="true"
+                                update="ghostnetForm"
+                                disabled="#{!(singleGhostnetItem.currentState eq 'BERGUNG_BEVORSTEHEND')}"/>
+
+                            <p:button
+                                class="icon-button blue-button"
+                                icon="pi pi-phone"
+                                title="Meldenden kontaktieren"
+                                href="tel:#{singleGhostnetItem.reporterPhoneNumber}"
+                                disabled="#{empty singleGhostnetItem.reporterPhoneNumber}"/>
+
+                            <p:commandButton
+                                class="icon-button yellow-button"
+                                icon="pi pi-times"
+                                title="Bergung abbrechen"
+                                action="#{ghostnetController.abortRetrievalOfGhostnet(singleGhostnetItem)}"
+                                ajax="true"
+                                update="ghostnetForm"
+                                disabled="#{!(singleGhostnetItem.currentState eq 'BERGUNG_BEVORSTEHEND')}" />
+
+                            <p:commandButton
+                                class="icon-button red-button"
+                                icon="pi pi-flag"
+                                title="Als verschollen markieren"
+                                action="#{ghostnetController.markGhostnetAsLost(singleGhostnetItem)}"
+                                ajax="true"
+                                update="ghostnetForm"
+                                disabled="#{!(singleGhostnetItem.currentState eq 'BERGUNG_BEVORSTEHEND')}" />
                         </p:column>
                     </p:dataTable>
 
-                    <!-- Other Ghostnets -->
-                    <h2 class="home-subtitle">Nicht geborgen</h2>
+                    <!-- Additional Ghostnets -->
+                    <h2>Weitere Geisternetze</h2>
 
                     <p:dataTable value="#{ghostnetController.getAllOtherGhostnets()}" lazy="false" var="singleGhostnetItem"
-                                 sortOrder="ascending" sortBy="#{singleGhostnetItem.sightingDate}" rows="5"
-                                 paginator="true" paginatorPosition="bottom">
+                                 rows="5" paginator="true" paginatorPosition="bottom">
 
-                        <p:column headerText="Sichtung" width="10%" sortBy="#{singleGhostnetItem.sightingDate}">
+                        <!-- Sighting Date Column -->
+                        <p:column headerText="Sichtung">
                             <h:outputText value="#{singleGhostnetItem.sightingDate}">
                                 <f:convertDateTime pattern="dd.MM.yyyy" />
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Größe" width="10%" sortBy="#{singleGhostnetItem.size}">
+                        <!-- Size Column -->
+                        <p:column headerText="Größe">
                             <h:outputText value="#{singleGhostnetItem.size} m²" />
                         </p:column>
 
-                        <p:column headerText="Status" width="20%" sortBy="#{singleGhostnetItem.currentState}">
-                            <span class="currentState state-#{singleGhostnetItem.currentState}">
+                        <!-- Status Column -->
+                        <p:column headerText="Status">
+                            <span class="currentstate currentstate-#{singleGhostnetItem.currentState}">
                                 #{singleGhostnetItem.currentState.displayName}
                             </span>
                         </p:column>
 
-                        <p:column headerText="Koordinaten" width="15%">
-                            <p:button class="primary-button small-button" value="Auf Maps ansehen"
-                                      onclick="window.open('https://maps.google.com/?q=#{singleGhostnetItem.latitude},#{singleGhostnetItem.longitude}', '_blank')" />
+                        <!-- Coordinates Column -->
+                        <p:column headerText="Koordinaten">
+                            <a href="https://maps.google.com/?q=#{singleGhostnetItem.latitude},#{singleGhostnetItem.longitude}" 
+                               class="primary-button small-button" target="_blank">
+                                Auf Maps ansehen
+                            </a>
                         </p:column>
 
-                        <p:column headerText="Aktion" width="45%">
-                            <p:commandButton class="small-button ghostnet-retrieved" value="Geisternetz bergen"
-                                             action="#{ghostnetController.startRetrievalOfGhostnet(singleGhostnetItem)}"
-                                             ajax="true" update="ghostnetTable"/>
-                            <p:commandButton class="small-button contact-reporter" value="Bergenden anrufen"
-                                             action="#{ghostnetController.markGhostnetAsLost(singleGhostnetItem)}"
-                                             ajax="true" update="ghostnetTable"/>
-                            <p:commandButton class="small-button mark-lost"
-                                             action="#{ghostnetController.markGhostnetAsLost(singleGhostnetItem)}"
-                                             ajax="true" update="ghostnetTable"/>
+                        <!-- Action Buttons -->
+                        <p:column headerText="Aktion">
+                            <p:commandButton
+                                class="icon-button green-button"
+                                icon="pi pi-plus"
+                                title="Geisternetz bergen"
+                                action="#{ghostnetController.startRetrievalOfGhostnet(singleGhostnetItem)}"
+                                ajax="true"
+                                update="ghostnetForm"
+                                disabled="#{!empty singleGhostnetItem.retriever}" />
+
+                            <p:button
+                                class="icon-button blue-button"
+                                icon="pi pi-phone"
+                                title="Meldenden kontaktieren"
+                                href="tel:#{singleGhostnetItem.reporterPhoneNumber}"
+                                disabled="#{empty singleGhostnetItem.reporterPhoneNumber}" />
+
+                            <p:button
+                                class="icon-button blue-button"
+                                icon="pi pi-envelope"
+                                title="Bergenden kontaktieren"
+                                href="mailto:#{singleGhostnetItem.retriever.emailAddress}"
+                                disabled="#{empty singleGhostnetItem.retriever}" />
+
                         </p:column>
                     </p:dataTable>
                 </h:form>
@@ -128,11 +173,10 @@
 
             <!-- Message for Non-Logged-in Users -->
             <h:panelGroup rendered="#{!sessionHandler.loggedIn}">
-                <h2>
-                    <h:outputText value="Bitte loggen Sie sich ein, um auf diese Seite zuzugreifen." />
-                </h2>
-                <p:button class="secondary-button" value="Einloggen/Registrieren" outcome="userauth"/>
+                <h2>Bitte loggen Sie sich ein, um auf diese Seite zuzugreifen.</h2>
+                <p:button class="secondary-button big-button" value="Einloggen/Registrieren" outcome="userauth"/>
             </h:panelGroup>
+
         </div>
     </h:body>
 </html>

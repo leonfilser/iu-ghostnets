@@ -6,6 +6,16 @@
   --primary-color: #1B3B46 !important;
   --secondary-color: #A3C6CC !important;
   --background-color: #f9f9f9 !important;
+
+  /*Status Colors*/
+  --dark-red-color: #c63737 !important;
+  --light-red-color: #ffcdd2 !important;
+  --dark-green-color: #256029 !important;
+  --light-green-color: #c8e6c9 !important;
+  --dark-blue-color: #23547b !important;
+  --light-blue-color: #b3e5fc !important;
+  --dark-yellow-color: #805b36 !important;
+  --light-yellow-color: #ffd8b2 !important;
 }
 
 body {
@@ -22,7 +32,7 @@ body {
 .main-container {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  min-height: 99vh;
   align-items: center;
   justify-content: center;
   max-width: 1200px;
@@ -43,75 +53,93 @@ h3 {
   font-size: 1.5em;
 }
 
-/*Ändert das Standarddesign der Primefaces Button*/
+/*-------------------- Button Settings --------------------*/
+
 button.secondary-button, button.primary-button.ui-state-hover, button.primary-button.ui-state-active {
   border: 2px solid var(--primary-color);
-  border-radius: 10px;
   background: var(--secondary-color);
   color: var(--primary-color);
-  padding: 0.5em;
-  font-weight: 500;
-  height: fit-content;
 }
 
-/*Ändert das Standarddesign der Primefaces Button beim hovern*/
 button.primary-button, button.secondary-button.ui-state-hover, button.secondary-button.ui-state-active {
   border: 2px solid var(--primary-color);
-  border-radius: 10px;
   background: var(--primary-color);
   color: var(--secondary-color);
-  padding: 0.5em;
+}
+
+button.big-button{
+  padding: 0.3em;
   font-weight: 500;
   height: fit-content;
 }
 
-button.small-button, button.small-button.ui-state-hover, button.small-button.ui-state-active {
+button.small-button {
   font-size: 12px;
-  padding: 2px;
-  margin: 2px;
+  padding: 0px;
+  margin: 0px;
   border: 2px solid var(--primary-color);
-  border-radius: 10px;
-  padding: 0.5em;
   font-weight: 500;
   height: fit-content;
 }
 
-
-.submit-button-container{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 1em;
+button.icon-button {
+  border-width: 2px;
 }
 
-/*-------------------- Global Header Settings --------------------*/
-
-.header-container {
-  display: flex;
-  flex-direction: row; /* Items horizontal anordnen */
-  justify-content: center; /* Horizontales Zentrieren */
-  align-items: center; /* Vertikales Zentrieren auf der gleichen Höhe */
-  margin: 4em;
+button.green-button{
+  color: var(--dark-green-color);
+  background-color: var(--light-green-color);
+  border-color: var(--light-green-color);
 }
 
-.header-logo {
-  width: 125px;
+button.green-button:hover{
+  color: var(--dark-green-color);
+  background-color: var(--light-green-color);
+  border-color: var(--dark-green-color);
 }
 
-.header-title {
-  font-size: 2.5em;
-  font-weight: 600;
+button.blue-button{
+  color: var(--dark-blue-color);
+  background-color: var(--light-blue-color);
+  border-color: var(--light-blue-color);
 }
 
-/*-------------------- Global Table Settings --------------------*/
-
-thead tr th.ui-state-default{
-  background: var(--primary-color);
-  color: white;
+button.blue-button:hover{
+  color: var(--dark-blue-color);
+  background-color: var(--light-blue-color);
+  border-color: var(--dark-blue-color);
 }
 
-tbody.ui-datatable-data > tr{
-  background: var(--secondary-color) !important;
+button.yellow-button{
+  color: var(--dark-yellow-color);
+  background-color: var(--light-yellow-color);
+  border-color: var(--light-yellow-color);
+}
+
+button.yellow-button:hover{
+  color: var(--dark-yellow-color);
+  background-color: var(--light-yellow-color);
+  border-color: var(--dark-yellow-color);
+}
+
+button.red-button{
+  color: var(--dark-red-color);
+  background-color: var(--light-red-color);
+  border-color: var(--light-red-color);
+}
+
+button.red-button:hover{
+  color: var(--dark-red-color);
+  background-color: var(--light-red-color);
+  border-color: var(--dark-red-color);
+}
+
+/*-------------------- Error Message Style --------------------*/
+.error-message{
+  padding: 2px 8px;
+  border-radius: 3px;
+  background-color: var(--light-red-color);
+  color: var(--dark-red-color);
 }
 
 /*-------------------- Index/Home Page Settings --------------------*/
@@ -139,22 +167,26 @@ div.home-button-container {
 .worldmap-container {
   width: 100%;
   height: 600px;
-  position: relative;
-  overflow: hidden;
   border: solid;
-  border-radius: 10px;
+  border-radius: 5px;
   border-color: var(--primary-color);
   border-width: 2px;
   margin-bottom: 4em;
 }
 
-/*-------------------- Report Page Settings --------------------*/
+/*-------------------- Report Ghostnet Style Settings --------------------*/
+
+h1.report-title {
+  margin: 10px;
+  font-size: 36px;
+  font-weight: 600;
+}
 
 .report-grid{
   background-color: var(--secondary-color);
   border: solid;
   padding: 2em 1em;
-  border-radius: 7px;
+  border-radius: 5px;
   border-width: 2px;
 }
 
@@ -168,112 +200,124 @@ button.ui-datepicker.trigger .ui-button.ui-state-hover {
   border-color: var(--primary-color);
 }
 
+.submit-button-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 1em;
+}
+
 /*-------------------- Auth Page Settings --------------------*/
 
-/* Apply background color and justify content to the tabs navigation */
-body .ui-tabs .ui-tabs-nav {
-  justify-content: center;
-  background-color: var(--primary-color);
-  border-radius: 7px 7px 0 0;
+h1.auth-title {
+  margin: 10px;
+  font-size: 36px;
+  font-weight: 600;
 }
 
-/* Ensure all tab headers have the same background color */
-body .ui-tabs .ui-tabs-nav li.ui-tabs-header {
-  background-color: inherit !important;
+ul.ui-tabs-nav {
+  background-color: var(--primary-color) !important;
+  border-radius: 5px 5px 0 0 !important;
+  justify-content: space-around;
 }
 
-
-body .ui-tabs .ui-tabs-nav li.ui-tabs-header.ui-state-active a {
-  color: white;
+ul.ui-tabs-nav::before {
+  content: none !important;
 }
 
-body .ui-tabs .ui-tabs-panels {
-  background-color: var(--secondary-color);
-  border-radius: 0 0 7px 7px;
-  padding: 1em;
+/* Für alle li-Elemente innerhalb des ul.ui-tabs-nav */
+ul.ui-tabs-nav li {
+  background-color: inherit !important; /* Hier den gewünschten Farbwert einfügen */
+  color: var(--secondary-color) !important;
+  border-bottom-color: none !important;
 }
 
-body .ui-tabs.ui-tabs-top>.ui-tabs-nav:before {
-  content: none;
+/* Für das ausgewählte li-Element (active Tab) */
+ul.ui-tabs-nav li.ui-tabs-selected {
+  background-color: inherit !important; /* Farbe für aktiven Tab */
+  color: var(--secondary-color) !important;
+  border-bottom-color: var(--secondary-color) !important;
 }
 
-body .ui-tabs.ui-tabs-top>.ui-tabs-nav li.ui-tabs-header.ui-state-active {
-  border-color: var(--secondary-color)
+ul.ui-tabs-nav li.ui-tabs-selected > a {
+  color: var(--secondary-color) !important;
 }
 
-body .ui-tabs.ui-tabs-top>.ui-tabs-nav li.ui-tabs-header.ui-state-hover {
-  border-color: var(--secondary-color)
-}
-
-body .ui-tabs.ui-tabs-top>.ui-tabs-nav li.ui-tabs-header {
-  border-color: var(--secondary-color)
+div.ui-tabs-panels {
+  background: var(--secondary-color) !important;
+  border-radius: 0 0 5px 5px !important;
 }
 
 /*-------------------- Userdash Page Settings --------------------*/
 
-.userdash-welcome {
+.userdash-header {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 4em;
   margin-top: 4em;
-  border-bottom: solid;
-  border-color: var(--primary-color);
-  border-width: 7px;
   align-items: center;
 }
 
-.currentState {
-  padding: 3px 8px;
+.userdash-header-form{
+  margin:0;
+  display: flex;
+  margin: 0;
+  gap: 10px;
+}
+
+/*-------------------- Current State Settings --------------------*/
+
+.currentstate{
+  padding: 2px 8px;
   border-radius: 3px;
 }
 
-button.ghostnet-retrieved {
-  color: #256029;
-  border-color: #256029;
-  width: 49%;
+.currentstate-GEMELDET{
+  background-color: var(--light-blue-color);
+  color: var(--dark-blue-color);
 }
 
-button.ghostnet-retrieved.ui-state-hover, button.ghostnet-retrieved.ui-state-active {
-  background-color: #c8e6c9;
+.currentstate-BERGUNG_BEVORSTEHEND{
+  background-color: var(--light-yellow-color);
+  color: var(--dark-yellow-color);
+}
+.currentstate-GEBORGEN{
+  background-color: var(--light-green-color);
+  color: var(--dark-green-color);
+}
+.currentstate-VERSCHOLLEN{
+  background-color: var(--light-red-color);
+  color: var(--dark-red-color);
 }
 
-button.abort-retrieval {
-  background-color: #ffd8b2;
-  color: #805b36;
-  border-color: #805b36;
-  width: 49%;
+/*-------------------- Table Settings --------------------*/
+
+thead tr th.ui-state-default{
+  background: var(--primary-color);
+  color: white;
 }
 
-button.mark-lost {
-  border-color: #c63737;
-  background-color: #ffcdd2;
-  color: #c63737;
-  width: 49%;
+tbody.ui-datatable-data > tr{
+  background: var(--secondary-color) !important;
 }
 
-button.contact-reporter {
-  border-color: #23547b;
-  background-color: #b3e5fc;
-  color: #23547b;
-  width: 49%;
+body .ui-datatable .ui-paginator.ui-paginator-bottom {
+  background: var(--primary-color);
 }
 
-.currentState.state-GEMELDET{
-  color: #23547b;
-  background-color: #b3e5fc;
+body .ui-datatable thead th.ui-state-hover {
+  background: var(--secondary-color);
 }
-.currentState.state-BERGUNG_BEVORSTEHEND{
-  color: #805b36;
-  background-color: #ffd8b2;
-}
-.currentState.state-GEBORGEN{
-  color: #256029;
-  background-color: #c8e6c9;
 
+body .ui-datatable thead th.ui-state-active {
+  background: var(--primary-color);
 }
-.currentState.state-VERSCHOLLEN{
-  color: #c63737;
-  background-color: #ffcdd2;
+
+body .ui-paginator .ui-paginator-first, body .ui-paginator .ui-paginator-prev, body .ui-paginator .ui-paginator-next, body .ui-paginator .ui-paginator-last {
+  color: white;
+}
+
+body .ui-datatable thead th.ui-state-active.ui-state-hover {
+  background: var(--secondary-color);
 }

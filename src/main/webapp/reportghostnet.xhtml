@@ -13,99 +13,107 @@
 
     <body>
         <div class="main-container">
-            <h2>Neues Geisternetz melden</h2>
+            <h1 class="report-title">Neues Geisternetz melden</h1>
 
             <h:form id="reportForm">
                 <h:panelGrid class="report-grid" columns="2" cellpadding="5">
+                    
 
                     <h:outputText value="Sichtungszeitpunkt" />
                     <p:calendar 
-                        title="Sichtungszeitpunkt" 
-                        required="true" 
                         id="sightingDate" 
                         value="#{ghostnetController.ghostnet.sightingDate}" 
                         pattern="dd.MM.yyyy" 
+                        required="true"
                         showOn="button" 
                         maxdate="#{dateBean.currentDate}" 
                         mask="true" 
+                        title="Sichtungszeitpunkt"
                         requiredMessage="Bitte geben Sie ein Datum im Format TT.MM.JJJJ an." 
-                        validatorMessage="Das Datum darf nicht in der Zukunft liegen" />
-                    <h:message for="sightingDate" style="color:red" />
-                    <h:outputText value="" />
+                        validatorMessage="Das Datum darf nicht in der Zukunft liegen." />
+                    <!-- -->
+                    <h:message for="sightingDate" class="error-message"/>
 
 
                     <h:outputText value="Breitengrad" />
                     <p:inputText 
-                        title="Breitengrad" 
-                        required="true" 
                         id="latitude" 
                         value="#{ghostnetController.ghostnet.latitude}" 
+                        type="number" 
+                        title="Breitengrad" 
+                        required="true"
                         requiredMessage="Bitte geben Sie einen Breitengrad zwischen -90 und 90 an." 
-                        validatorMessage="Bitte geben Sie einen Breitengrad zwischen -90 und 90 an." 
-                        type="number">
+                        validatorMessage="Bitte geben Sie einen Breitengrad zwischen -90 und 90 an.">
                         <f:validateDoubleRange minimum="-90" maximum="90" />
                     </p:inputText>
-                    <h:message for="latitude" style="color:red" />
-                    <h:outputText value="" />
+                    <!-- -->
+                    <h:message for="latitude" class="error-message" />
 
 
                     <h:outputText value="Längengrad" />
                     <p:inputText 
-                        title="Längengrad" 
-                        required="true" 
                         id="longitude" 
                         value="#{ghostnetController.ghostnet.longitude}" 
+                        type="number" 
+                        title="Längengrad" 
+                        required="true"
                         requiredMessage="Bitte geben Sie einen Längengrad zwischen -180 und 180 an." 
-                        validatorMessage="Bitte geben Sie einen Längengrad zwischen -180 und 180 an." 
-                        type="number">
+                        validatorMessage="Bitte geben Sie einen Längengrad zwischen -180 und 180 an.">
                         <f:validateDoubleRange minimum="-180" maximum="180" />
                     </p:inputText>
-                    <h:message for="longitude" style="color:red" />
-                    <h:outputText value="" />
+                    <!-- -->
+                    <h:message for="longitude" class="error-message" />
 
 
                     <h:outputText value="Größe in m²" />
                     <p:inputText 
-                        title="Größe in m²" 
-                        required="true" 
                         id="size" 
                         value="#{ghostnetController.ghostnet.size}" 
+                        type="number" 
+                        title="Größe in m²" 
+                        required="true"
                         requiredMessage="Bitte geben Sie die Größe des Geisternetzes in Quadratmetern an." 
-                        validatorMessage="Die Größe muss zwischen 1 und 5000 Quadratmetern liegen." 
-                        type="number">
+                        validatorMessage="Die Größe muss zwischen 1 und 5000 Quadratmetern liegen.">
                         <f:validateLongRange minimum="1" maximum="5000" />
                     </p:inputText>
-                    <h:message for="size" style="color:red" />
-                    <h:outputText value="" />
+                    <!-- -->
+                    <h:message for="size" class="error-message" />
 
 
                     <h:outputText value="Telefonnummer" />
                     <p:inputText 
-                        title="Telefonnummer" 
-                        required="false" 
                         id="phoneNumber" 
-                        placeholder="(optional)" 
                         value="#{ghostnetController.ghostnet.reporterPhoneNumber}" 
-                        validatorMessage="Bitte geben Sie eine gültige Telefonnummer ein (z.B. +49 123 456 789)." 
-                        type="tel">
+                        placeholder="(optional)" 
+                        type="tel"
+                        title="Telefonnummer"
+                        validatorMessage="Bitte geben Sie eine gültige Telefonnummer ein (z.B. +49 123 456 789).">
                         <f:validateLength minimum="5" maximum="20" />
                         <f:validateRegex pattern="^\+?[0-9]{1,3}?[-. ]?(\(?\d{1,4}\)?)?[-. ]?\d{1,4}[-. ]?\d{1,4}[-. ]?\d{1,9}$" />
                     </p:inputText>
-                    <h:message for="phoneNumber" style="color:red" />
-                    <h:outputText value="" />
+                    <!-- -->
+                    <h:message for="phoneNumber" class="error-message" />
 
                 </h:panelGrid>
 
                 <div class="submit-button-container">
-                    <p:commandButton class="secondary-button" 
-                                     value="Abbrechen" 
-                                     onclick="window.history.back();" 
-                                     type="button" />
-                    <p:commandButton class="primary-button" 
-                                     value="Neues Geisternetz melden" 
-                                     action="#{ghostnetController.addGhostnet}" 
-                                     ajax="true" 
-                                     update="reportForm" />
+                    <!-- Abbrechen Button -->
+                    <p:button
+                        class="secondary-button big-button"
+                        icon="pi pi-times"
+                        iconPos="left"
+                        value="Abbrechen" 
+                        outcome="index" />
+
+                    <!-- Melden Button -->
+                    <p:commandButton
+                        class="primary-button big-button"
+                        icon="pi pi-flag"
+                        iconPos="right"
+                        value="Neues Geisternetz melden" 
+                        action="#{ghostnetController.addGhostnet}" 
+                        ajax="true" 
+                        update="reportForm" />
                 </div>
             </h:form>
         </div>
