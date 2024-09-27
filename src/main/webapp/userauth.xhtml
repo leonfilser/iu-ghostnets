@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
-        <title>Shea Shepherd</title>
+        <title>Shea Sepherd</title>
         <link rel="icon" type="image/x-icon" href="media/favicon.ico" />
         <link rel="stylesheet" type="text/css" media="screen" href="style.css"/>
     </h:head>
@@ -31,7 +31,7 @@
                                 title="Email" 
                                 required="true" 
                                 requiredMessage="Bitte geben Sie Ihre E-Mail-Adresse ein." 
-                                validator="#{userValidator.loginValidateEmail}" />
+                                validator="#{userValidator.checkIfUserWithEmailAddressExists}" />
                             <!-- -->
                             <h:message for="loginEmail" class="error-message" />
 
@@ -43,7 +43,7 @@
                                 title="Passwort" 
                                 required="true"
                                 requiredMessage="Bitte geben Sie Ihr Passwort ein." 
-                                validator="#{userValidator.loginValidatePassword}" />
+                                validator="#{userValidator.checkIfPasswordIsCorrect}" />
                             <!-- -->
                             <h:message for="loginPassword" class="error-message" />
 
@@ -111,7 +111,7 @@
                                 title="Telefonnummer" 
                                 required="true"
                                 requiredMessage="Bitte geben Sie Ihre Telefonnummer ein." 
-                                validator="#{userValidator.registerValidatePhoneNumber}" 
+                                validator="#{userValidator.checkIfPhoneNumberAlreadyExists}" 
                                 type="tel">
                                 <f:validateLength minimum="5" maximum="20" />
                                 <f:validateRegex pattern="^\+?[0-9]{1,3}?[-. ]?(\(?\d{1,4}\)?)?[-. ]?\d{1,4}[-. ]?\d{1,4}[-. ]?\d{1,9}$" />
@@ -128,7 +128,7 @@
                                 title="Email" 
                                 required="true" 
                                 requiredMessage="Bitte geben Sie Ihre E-Mail-Adresse ein." 
-                                validator="#{userValidator.registerValidateEmailAddress}">
+                                validator="#{userValidator.checkIfEmailAddressAlreadyExists}">
                                 <f:validateLength minimum="5" maximum="50" />
                                 <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
                             </p:inputText>

@@ -3,50 +3,104 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.annotation.PreDestroy;
 import jakarta.persistence.Persistence;
-import jakarta.persistence.Query;
-import jakarta.inject.Named;
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.PersistenceException;
+import jakarta.persistence.TypedQuery;
 
 public class UserDAO {
-        
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("iu-ghostnets");
+
+    private static EntityManagerFactory emf;
+
+    private EntityManagerFactory getEntityManagerFactory() {
+        if (emf == null) {
+            emf = Persistence.createEntityManagerFactory("iu-ghostnets");
+        }
+        return emf;
+    }
 
     public List<User> userList() {
-        try (EntityManager em = emf.createEntityManager()) {
-            Query q = em.createQuery("select u from User u");
+        EntityManager em = null;
+        try {
+            em = getEntityManagerFactory().createEntityManager();
+            TypedQuery<User> q = em.createQuery("select u from User u", User.class);
             return q.getResultList();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
         }
     }
 
     public void addUser(User user) {
-        try (EntityManager em = emf.createEntityManager()) {
-            em.getTransaction().begin();
+        EntityManager em = null;
+        EntityTransaction transaction = null;
+        try {
+            em = getEntityManagerFactory().createEntityManager();
+            transaction = em.getTransaction();
+            transaction.begin();
             em.persist(user);
-            em.getTransaction().commit();
+            transaction.commit();
+        } catch (PersistenceException e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw e; // Re-throw exception or handle appropriately
+        } finally {
+            if (em != null) {
+                em.close();
+            }
         }
     }
-    
+
     public void updateUser(User user) {
-        try (EntityManager em = emf.createEntityManager()) {
-            em.getTransaction().begin();
+        EntityManager em = null;
+        EntityTransaction transaction = null;
+        try {
+            em = getEntityManagerFactory().createEntityManager();
+            transaction = em.getTransaction();
+            transaction.begin();
             em.merge(user);
-            em.getTransaction().commit();
+            transaction.commit();
+        } catch (PersistenceException e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw e; // Re-throw exception or handle appropriately
+        } finally {
+            if (em != null) {
+                em.close();
+            }
         }
     }
-    
+
     public void deleteUser(Integer userId) {
-        try (EntityManager em = emf.createEntityManager()) {
-            em.getTransaction().begin();
+        EntityManager em = null;
+        EntityTransaction transaction = null;
+        try {
+            em = getEntityManagerFactory().createEntityManager();
+            transaction = em.getTransaction();
+            transaction.begin();
             User user = em.find(User.class, userId);
             if (user != null) {
                 em.remove(user);
             }
-            em.getTransaction().commit();
+            transaction.commit();
+        } catch (PersistenceException e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw e; // Re-throw exception or handle appropriately
+        } finally {
+            if (em != null) {
+                em.close();
+            }
         }
     }
 
     @PreDestroy
     public void close() {
-        emf.close();
+        if (emf != null && emf.isOpen()) {
+            emf.close();
+        }
     }
 }

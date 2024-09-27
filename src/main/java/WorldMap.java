@@ -2,15 +2,11 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.view.ViewScoped;
 import java.io.Serializable;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
-import org.primefaces.model.map.Symbol;
 
 
 @Named
@@ -35,7 +31,7 @@ public class WorldMap implements Serializable {
         markerModel = new DefaultMapModel<>();
 
         for(Ghostnet reportedGhostnet : ghostnetController.getReportedGhostnets()) {
-            if(reportedGhostnet.getCurrentState().equals(GhostnetState.GEMELDET))
+            if(!reportedGhostnet.getCurrentState().equals(GhostnetState.GEBORGEN))
             {
                 markerModel.addOverlay(new Marker<>(new LatLng(reportedGhostnet.getLatitude(), reportedGhostnet.getLongitude()), reportedGhostnet.getCurrentState().toString()));
             }

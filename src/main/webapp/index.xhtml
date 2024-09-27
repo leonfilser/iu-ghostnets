@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
-        <title>Shea Shepherd</title>
+        <title>Shea Sepherd</title>
         <link rel="icon" type="image/x-icon" href="media/favicon.ico" />
         <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     </h:head>
@@ -15,16 +15,16 @@
         <div class="main-container">
 
             <!-- Logo -->
-            <img class="home-logo" src="media/logo.png" alt="Shea Shepherd Logo" />
+            <img class="home-logo" src="media/logo.png" alt="Shea Sepherd Logo" />
 
             <!-- Title and Subtitle -->
-            <h1 class="home-title">Shea Shepherd</h1>
+            <h1 class="home-title">Shea Sepherd</h1>
             <h2 class="home-subtitle">Geisternetze bergen - Meere bewahren</h2>
 
             <!-- User-Specific Content -->
             <h:panelGroup>
                 <!-- Welcome Message for Logged-in Users -->
-                <h:panelGroup rendered="#{sessionHandler.loggedIn}">
+                <h:panelGroup rendered="#{userSession.loggedIn}">
                     <h3>
                         <h:outputText value="Willkommen #{userController.user.firstName} #{userController.user.lastName}!" />
                     </h3>
@@ -37,12 +37,12 @@
                     <p:button class="primary-button big-button" value="Geisternetz Melden" outcome="reportghostnet" />
 
                     <!-- Conditional Buttons for Login/Registration and Dashboard -->
-                    <h:panelGroup rendered="#{!sessionHandler.loggedIn}">
+                    <h:panelGroup rendered="#{!userSession.loggedIn}">
                         <!-- Login/Register Button for Not Logged-in Users -->
                         <p:button class="secondary-button big-button" value="Einloggen/Registrieren" outcome="userauth" />
                     </h:panelGroup>
 
-                    <h:panelGroup rendered="#{sessionHandler.loggedIn}">
+                    <h:panelGroup rendered="#{userSession.loggedIn}">
                         <!-- Dashboard Button for Logged-in Users -->
                         <p:button class="secondary-button big-button" value="Zum Dashboard" outcome="userdash" />
                     </h:panelGroup>

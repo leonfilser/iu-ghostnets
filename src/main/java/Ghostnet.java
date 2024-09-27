@@ -4,48 +4,56 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import java.util.Date;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.EnumType;
 
-// Entity class for the Ghostnet object
+// Entity class to construct Ghostnet objects
 
 @Entity
 public class Ghostnet implements Serializable {
     
+    // Unique identifier for each Ghostnet. Automatically generated and incremented
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id; //Auto generated ID for each Ghostnet
-    
-    @Enumerated(EnumType.STRING)
-    private GhostnetState currentState; //The current state of the Ghostnet (Gemeldet, Bergung Bevorstehend, Geborgen, Verschollen;)
-    
-    @Temporal(jakarta.persistence.TemporalType.DATE)
-    private Date sightingDate; //The date the Ghostnet was sighted
+    private Integer id;
 
-    private Double latitude;
-    private Double longitude;
+    // The current state of the Ghostnet (e.g., GEMELDET, BERGUNG_BEVORSTEHEND, GEBORGEN, VERSCHOLLEN)
+    @Enumerated(EnumType.STRING)
+    private GhostnetState currentState;
+
+    // Date when the Ghostnet was sighted
+    @Temporal(jakarta.persistence.TemporalType.DATE)
+    private Date sightingDate;
+
+    // Coordinates of the Ghostnet location
+    private Double latitude;  // Latitude of the Ghostnet
+    private Double longitude; // Longitude of the Ghostnet
+
+    // Estimated size of the Ghostnet in square meters
     private Integer size;
+
+    // Phone number of the person who reported the Ghostnet (optional field)
     private String reporterPhoneNumber;
 
+    // The User who is in charge of the retrieval of the Ghostnet. Either null or 1 User
     @ManyToOne(fetch = FetchType.EAGER)
     private User retriever;
-    
-    public Ghostnet()
-    {
+
+    // Empty Constructor
+    public Ghostnet() {
 
     }
+
+    // Getters and Setters for all Attributes
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    // No setter method for id, as it is automatically generated and shouldnt be changed
 
     public GhostnetState getCurrentState() {
         return currentState;

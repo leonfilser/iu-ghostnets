@@ -1,12 +1,6 @@
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.RequestScoped;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.SystemEvent;
-import jakarta.faces.validator.ValidatorException;
 import jakarta.faces.view.ViewScoped;
 import java.io.Serializable;
 import java.util.List;
@@ -17,7 +11,7 @@ import org.mindrot.jbcrypt.BCrypt;
 public class UserController implements Serializable {
 
     @Inject
-    private SessionHandler sessionHandler;
+    private UserSession userSession;
 
     private UserDAO userDAO = new UserDAO();
     
@@ -31,9 +25,9 @@ public class UserController implements Serializable {
 
     @PostConstruct
     public void init() {
-        if (sessionHandler.isLoggedIn()) {
+        if (userSession.isLoggedIn()) {
             for (User existingUser : existingUsers) {
-                if (existingUser.getId().equals(sessionHandler.getUserId())) {
+                if (existingUser.getId().equals(userSession.getUserId())) {
                     this.user = existingUser;
                 }
             }
@@ -61,8 +55,8 @@ public class UserController implements Serializable {
                 && BCrypt.checkpw(user.getPassword(), existingUser.getPassword())) {
     
                 this.user = existingUser;
-                sessionHandler.setLoggedIn(true);
-                sessionHandler.setUserId(user.getId());
+                userSession.setLoggedIn(true);
+                userSession.setUserId(user.getId());
     
                 System.out.println("User " + user.getId() + " logged in.");
     
@@ -77,8 +71,8 @@ public class UserController implements Serializable {
 
     public String logoutUser() {
 
-        sessionHandler.setUserId(null);
-        sessionHandler.setLoggedIn(false);
+        userSession.setUserId(null);
+        userSession.setLoggedIn(false);
 
         user = new User();
 

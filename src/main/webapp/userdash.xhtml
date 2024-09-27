@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
-        <title>Shea Shepherd</title>
+        <title>Shea Sepherd</title>
         <link rel="icon" type="image/x-icon" href="media/favicon.ico" />
         <link rel="stylesheet" type="text/css" media="screen" href="style.css"/>
     </h:head>
@@ -15,7 +15,7 @@
         <div class="main-container">
 
             <!-- User Dashboard for Logged-in Users -->
-            <h:panelGroup rendered="#{sessionHandler.loggedIn}">
+            <h:panelGroup rendered="#{userSession.loggedIn}">
 
                 <div class="userdash-header">
                     <h2>Übersicht Ihrer Geisternetze</h2>
@@ -172,7 +172,7 @@
             </h:panelGroup>
 
             <!-- Message for Non-Logged-in Users -->
-            <h:panelGroup rendered="#{!sessionHandler.loggedIn}">
+            <h:panelGroup rendered="#{!userSession.loggedIn}">
                 <h2>Bitte loggen Sie sich ein, um auf diese Seite zuzugreifen.</h2>
                 <p:button class="secondary-button big-button" value="Einloggen/Registrieren" outcome="userauth"/>
             </h:panelGroup>

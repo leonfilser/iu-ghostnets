@@ -2,51 +2,105 @@ import java.util.List;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.annotation.PreDestroy;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.Persistence;
-import jakarta.persistence.Query;
-import jakarta.inject.Named;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.PersistenceException;
+import jakarta.persistence.TypedQuery;
 
 public class GhostnetDAO {
-        
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("iu-ghostnets");
+
+    private static EntityManagerFactory emf;
+
+    private EntityManagerFactory getEntityManagerFactory() {
+        if (emf == null) {
+            emf = Persistence.createEntityManagerFactory("iu-ghostnets");
+        }
+        return emf;
+    }
 
     public List<Ghostnet> ghostnetList() {
-        try (EntityManager em = emf.createEntityManager()) {
-            Query q = em.createQuery("select g from Ghostnet g");
+        EntityManager em = null;
+        try {
+            em = getEntityManagerFactory().createEntityManager();
+            TypedQuery<Ghostnet> q = em.createQuery("select g from Ghostnet g", Ghostnet.class);
             return q.getResultList();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
         }
     }
 
     public void addGhostnet(Ghostnet ghostnet) {
-        try (EntityManager em = emf.createEntityManager()) {
-            em.getTransaction().begin();
+        EntityManager em = null;
+        EntityTransaction transaction = null;
+        try {
+            em = getEntityManagerFactory().createEntityManager();
+            transaction = em.getTransaction();
+            transaction.begin();
             em.persist(ghostnet);
-            em.getTransaction().commit();
+            transaction.commit();
+        } catch (PersistenceException e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw e; // Exception weiterleiten oder behandeln
+        } finally {
+            if (em != null) {
+                em.close();
+            }
         }
     }
-    
+
     public void updateGhostnet(Ghostnet ghostnet) {
-        try (EntityManager em = emf.createEntityManager()) {
-            em.getTransaction().begin();
+        EntityManager em = null;
+        EntityTransaction transaction = null;
+        try {
+            em = getEntityManagerFactory().createEntityManager();
+            transaction = em.getTransaction();
+            transaction.begin();
             em.merge(ghostnet);
-            em.getTransaction().commit();
+            transaction.commit();
+        } catch (PersistenceException e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw e;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
         }
     }
-    
+
     public void deleteGhostnet(Integer ghostnetId) {
-        try (EntityManager em = emf.createEntityManager()) {
-            em.getTransaction().begin();
+        EntityManager em = null;
+        EntityTransaction transaction = null;
+        try {
+            em = getEntityManagerFactory().createEntityManager();
+            transaction = em.getTransaction();
+            transaction.begin();
             Ghostnet ghostnet = em.find(Ghostnet.class, ghostnetId);
             if (ghostnet != null) {
                 em.remove(ghostnet);
             }
-            em.getTransaction().commit();
+            transaction.commit();
+        } catch (PersistenceException e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw e;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
         }
     }
 
     @PreDestroy
     public void close() {
-        emf.close();
+        if (emf != null && emf.isOpen()) {
+            emf.close();
+        }
     }
 }

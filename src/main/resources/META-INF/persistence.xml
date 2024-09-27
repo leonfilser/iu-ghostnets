@@ -13,7 +13,7 @@
         <properties>
 
             <!-- Database Connection Settings -->
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:mariadb://94.16.117.133:3306/iu-ghostnets" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mariadb://mariadb:3306/iu-ghostnets" />
             <property name="jakarta.persistence.jdbc.user" value="iu-ghostnets" />
             <property name="jakarta.persistence.jdbc.password" value="ZsJ5nPX3t9k" />
             <property name="jakarta.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>

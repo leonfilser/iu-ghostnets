@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 @Named
 @SessionScoped
-public class SessionHandler implements Serializable {
+public class UserSession implements Serializable {
 
     private boolean loggedIn = false;
     private Integer userId;
 
-    public SessionHandler() {
+    public UserSession() {
 
     }
 

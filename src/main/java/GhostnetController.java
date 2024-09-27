@@ -4,7 +4,6 @@ import jakarta.faces.view.ViewScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import jakarta.enterprise.context.RequestScoped;
 
 @Named
 @ViewScoped
@@ -111,9 +110,5 @@ public class GhostnetController implements Serializable {
 
     public List<Ghostnet> getReportedGhostnets() {
         return reportedGhostnets;
-    }
-
-    public GhostnetState[] getGhostnetStates() {
-        return GhostnetState.values();
     }
 }

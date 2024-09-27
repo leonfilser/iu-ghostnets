@@ -3,11 +3,9 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.validator.ValidatorException;
-import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
-import java.util.List;
 import jakarta.enterprise.context.RequestScoped;
 
 @Named
@@ -24,7 +22,7 @@ public class UserValidator implements Serializable {
 
     ////////////////////////////////////////////////////////////////////////////
 
-    public void loginValidateEmail(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void checkIfUserWithEmailAddressExists(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         String emailAddress = (String) value;
     
         for (User existingUser : userController.getExistingUsers()) {
@@ -40,7 +38,7 @@ public class UserValidator implements Serializable {
 
     ////////////////////////////////////////////////////////////////////////////
 
-    public void loginValidatePassword(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void checkIfPasswordIsCorrect(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         String password = (String) value;
     
         for (User existingUser : userController.getExistingUsers()) {
@@ -56,7 +54,7 @@ public class UserValidator implements Serializable {
 
     ////////////////////////////////////////////////////////////////////////////
     
-    public void registerValidatePhoneNumber(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void checkIfPhoneNumberAlreadyExists(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         String phoneNumber = (String) value;
 
         for (User existingUser : userController.getExistingUsers()) {
@@ -70,7 +68,7 @@ public class UserValidator implements Serializable {
 
     ////////////////////////////////////////////////////////////////////////////
 
-    public void registerValidateEmailAddress(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void checkIfEmailAddressAlreadyExists(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         String emailAddress = (String) value;
 
         for (User existingUser : userController.getExistingUsers()) {
