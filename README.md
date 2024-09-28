@@ -4,30 +4,20 @@ Projektrepository für das Modul **Programmierung von industriellen Informations
 
 ## 📋 Projektbeschreibung
 
-Die Anwendung **IU-Ghostnets** dient der Entwicklung einer Webanwendung zum **Melden und Bergen von Geisternetzen**. Geisternetze sind verlorengegangene oder absichtlich zurückgelassene Fischernetze, die eine Bedrohung für die Meeresumwelt darstellen. Diese Anwendung soll das Aufspüren und Bergen solcher Netze erleichtern, um die Umwelt zu schützen.
+Ziel dieser Webanwendung ist es der Non-Profit-Organisation **Shea Sepherd** das Bergen von **Geisternetzen** zu vereinfachen. Freiwillige sollen Geisternetze unter Angabe ihrer Position und Koordinaten (anonym) melden können. Anschließend sollen registrierte Benutzer der Anwendung in der Lage sein die gemeldeten Netze bergen zu können.
 
 ## 🌐 Live-Demo
-
-Testen Sie die Anwendung direkt unter:
 
 [**Zur Live-Demo**](https://ghostnets.filser.io) 
 
 - **Nutzer:** `demo`  
 - **Passwort:** `demo`  
 
-> **Hinweis:** Die Zugangsdaten sind nur für die Demo-Umgebung gedacht und sollten nicht in der Produktionsumgebung verwendet werden.
-
-## 💻 Entwicklungsumgebung
-
-Um die Anwendung lokal auszuführen, werden folgende Tools und Versionen empfohlen:
-
-- **IDE:** Visual Studio Code
-- **Application Server:** Tomcat 10.1
-- **Build-Tool:** Maven 3.9.9
-
 ## 🛠️ Technologien
 
-- **Java EE:** Enterprise Java-Umgebung für die Entwicklung von Webanwendungen.
-- **Tomcat:** Servlet-Container zum Hosten der Anwendung.
+- **JavaServer Faces:** Enterprise Java-Umgebung für die Entwicklung von Webanwendungen.
 - **Maven:** Build-Management-Tool zur Verwaltung von Abhängigkeiten.
-- **HTML/CSS/JavaScript:** Frontend-Design der Anwendung.
+- **Tomcat:** Docker-Container zum Bereitstellen der Anwendung.
+- **PrimeFaces:** Komponentenbibliothek für JavaServer Faces.
+- **Hibernate:** Framework, welches die persistente Speicherung von Java-Objekten vereinfacht.
+- **MariaDB:** SQL Datenbankmanagementsystem.
