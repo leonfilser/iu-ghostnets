@@ -3,7 +3,7 @@ import jakarta.enterprise.context.RequestScoped;
 import java.time.LocalDate;
 
 /**
- * DateBean class
+ * DateBean
  * Provides the current date at the time of request and is used in report.xhtml
  * to ensure the sightingDate of a Ghostnet is not set in the future.
  */

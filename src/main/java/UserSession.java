@@ -2,6 +2,11 @@ import jakarta.inject.Named;
 import jakarta.enterprise.context.SessionScoped;
 import java.io.Serializable;
 
+/*
+ * UserSession
+ * Provides a session scoped bean to store the user's login status and ID.
+ */
+
 @Named
 @SessionScoped
 public class UserSession implements Serializable {

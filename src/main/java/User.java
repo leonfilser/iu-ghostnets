@@ -23,10 +23,10 @@ public class User implements Serializable {
     // Last name of the user
     private String lastName;
 
-    // Contact phone number of the user. Uniqueness is checked in the UserController class
+    // Contact phone number of the user. Uniqueness is checked in the UserValidator
     private String phoneNumber;
 
-    // Email address of the user. Uniqueness is checked in the UserController class
+    // Email address of the user. Uniqueness is checked in the UserValidator
     private String emailAddress;
 
     // Password for the user. Is encrypted in the UserController class before being stored

@@ -6,6 +6,11 @@ import java.io.Serializable;
 import java.util.List;
 import org.mindrot.jbcrypt.BCrypt;
 
+/**
+ * UserController
+ * Provides methods to register, login and logout users.
+ */
+
 @Named
 @ViewScoped
 public class UserController implements Serializable {
@@ -36,6 +41,7 @@ public class UserController implements Serializable {
 
     ////////////////////////////////////////////////////////////////////////////
 
+    // Registers a new user and stores it in the database
     public String registerUser() {
 
         user.setEmailAddress(user.getEmailAddress().trim().toLowerCase());
@@ -48,6 +54,7 @@ public class UserController implements Serializable {
 
     ////////////////////////////////////////////////////////////////////////////
 
+    // Logs in a user and sets the userSession
     public String loginUser() {
 
         for (User existingUser : existingUsers) {
@@ -69,6 +76,7 @@ public class UserController implements Serializable {
 
     ////////////////////////////////////////////////////////////////////////////
 
+    // Logs out a user and resets the userSession
     public String logoutUser() {
 
         userSession.setUserId(null);

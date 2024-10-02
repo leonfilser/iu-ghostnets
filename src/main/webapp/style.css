@@ -225,16 +225,14 @@ ul.ui-tabs-nav::before {
   content: none !important;
 }
 
-/* Für alle li-Elemente innerhalb des ul.ui-tabs-nav */
 ul.ui-tabs-nav li {
-  background-color: inherit !important; /* Hier den gewünschten Farbwert einfügen */
+  background-color: inherit !important;
   color: var(--secondary-color) !important;
   border-bottom-color: none !important;
 }
 
-/* Für das ausgewählte li-Element (active Tab) */
 ul.ui-tabs-nav li.ui-tabs-selected {
-  background-color: inherit !important; /* Farbe für aktiven Tab */
+  background-color: inherit !important;
   color: var(--secondary-color) !important;
   border-bottom-color: var(--secondary-color) !important;
 }

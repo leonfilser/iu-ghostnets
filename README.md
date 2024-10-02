@@ -8,6 +8,8 @@ Ziel dieser Webanwendung ist es der Non-Profit-Organisation **Shea Sepherd** das
 
 ## 🌐 Live-Demo
 
+Die Live-Demo wird, im Gegensatz zur Entwicklungsumgebung, in einem Tomcat Docker-Container ausgeführt. Leider funktioniert dort der DatePicker auf der "Geisternetz Melden"-Seite nicht wie erwartet. In der Entwicklungsumgebung unter Windows gab es keine Probleme. Der Fehler konnte bisher nicht behoben werden.
+
 [**Zur Live-Demo**](https://ghostnets.filser.io) 
 
 - **Nutzer:** `demo`  

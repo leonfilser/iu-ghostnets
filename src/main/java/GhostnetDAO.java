@@ -7,6 +7,11 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
 
+/*
+ * GhostnetDAO
+ * Provides methods to interact with Ghostnet entities in the database
+ */
+
 public class GhostnetDAO {
 
     private static EntityManagerFactory emf;
@@ -18,6 +23,7 @@ public class GhostnetDAO {
         return emf;
     }
 
+    // Returns a list of all ghostnets in the database
     public List<Ghostnet> ghostnetList() {
         EntityManager em = null;
         try {
@@ -31,6 +37,7 @@ public class GhostnetDAO {
         }
     }
 
+    // Adds a new ghostnet to the database
     public void addGhostnet(Ghostnet ghostnet) {
         EntityManager em = null;
         EntityTransaction transaction = null;
@@ -52,6 +59,7 @@ public class GhostnetDAO {
         }
     }
 
+    // Updates an existing ghostnet in the database
     public void updateGhostnet(Ghostnet ghostnet) {
         EntityManager em = null;
         EntityTransaction transaction = null;
@@ -73,6 +81,7 @@ public class GhostnetDAO {
         }
     }
 
+    // Deletes an existing ghostnet from the database
     public void deleteGhostnet(Integer ghostnetId) {
         EntityManager em = null;
         EntityTransaction transaction = null;

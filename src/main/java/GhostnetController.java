@@ -5,6 +5,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * GhostnetController
+ * Provides methods to manage ghostnet objects
+ */
+
 @Named
 @ViewScoped
 public class GhostnetController implements Serializable {
@@ -24,6 +29,7 @@ public class GhostnetController implements Serializable {
 
     ////////////////////////////////////////////////////////////////////////////
 
+    // Adds a new ghostnet to the database
     public String addGhostnet() {
         ghostnet.setCurrentState(GhostnetState.GEMELDET);
         ghostnetDao.addGhostnet(ghostnet);
@@ -34,6 +40,7 @@ public class GhostnetController implements Serializable {
 
     ////////////////////////////////////////////////////////////////////////////
 
+    // Returns a list of all ghostnets linked to the logged in user
     public List<Ghostnet> getGhostnetsByLoggedinUser() {
 
         List<Ghostnet> filteredGhostnets = new ArrayList<>();
@@ -50,22 +57,24 @@ public class GhostnetController implements Serializable {
 
     ////////////////////////////////////////////////////////////////////////////
 
-        public List<Ghostnet> getAllOtherGhostnets() {
+    // Returns a list of all ghostnets not linked to the logged in user
+    public List<Ghostnet> getAllOtherGhostnets() {
 
-            List<Ghostnet> filteredGhostnets = new ArrayList<>();
-            User user = userController.getUser();
+        List<Ghostnet> filteredGhostnets = new ArrayList<>();
+        User user = userController.getUser();
     
-            for (Ghostnet reportedGhostnet : reportedGhostnets) {
-                if (reportedGhostnet.getRetriever() == null || !reportedGhostnet.getRetriever().getId().equals(user.getId())) {
-                    filteredGhostnets.add(reportedGhostnet);
-                }
+        for (Ghostnet reportedGhostnet : reportedGhostnets) {
+            if (reportedGhostnet.getRetriever() == null || !reportedGhostnet.getRetriever().getId().equals(user.getId())) {
+                filteredGhostnets.add(reportedGhostnet);
             }
-    
-            return filteredGhostnets;
         }
+    
+        return filteredGhostnets;
+    }
 
     ////////////////////////////////////////////////////////////////////////////
 
+    // Updates the state of a ghostnet to "BERGUNG_BEVORSTEHEND" and sets the retriever to the logged in user
     public void startRetrievalOfGhostnet(Ghostnet ghostnet) {
         ghostnet.setRetriever(userController.getUser());
         ghostnet.setCurrentState(GhostnetState.BERGUNG_BEVORSTEHEND);
@@ -74,6 +83,7 @@ public class GhostnetController implements Serializable {
         reportedGhostnets = ghostnetDao.ghostnetList();
     }
 
+    // Updates the state of a ghostnet to "GEMELDET" and sets the retriever back to null
     public void abortRetrievalOfGhostnet(Ghostnet ghostnet) {
         ghostnet.setRetriever(null);
         ghostnet.setCurrentState(GhostnetState.GEMELDET);
@@ -82,6 +92,7 @@ public class GhostnetController implements Serializable {
         reportedGhostnets = ghostnetDao.ghostnetList();
     }
 
+    // Updates the state of a ghostnet to "GEBORGEN"
     public void finishRetrievalOfGhostnet(Ghostnet ghostnet) {
         ghostnet.setCurrentState(GhostnetState.GEBORGEN);
 
@@ -89,6 +100,7 @@ public class GhostnetController implements Serializable {
         reportedGhostnets = ghostnetDao.ghostnetList();
     }
 
+    // Updates the state of a ghostnet to "VERSCHOLLEN"
     public void markGhostnetAsLost(Ghostnet ghostnet) {
         ghostnet.setCurrentState(GhostnetState.VERSCHOLLEN);
         
@@ -97,8 +109,6 @@ public class GhostnetController implements Serializable {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-
-    
 
     public Ghostnet getGhostnet() {
         return ghostnet;

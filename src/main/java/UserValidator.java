@@ -8,6 +8,11 @@ import jakarta.inject.Named;
 import java.io.Serializable;
 import jakarta.enterprise.context.RequestScoped;
 
+/*
+ * UserValidator
+ * Validates user input of the registration and login form
+ */
+
 @Named
 @RequestScoped
 public class UserValidator implements Serializable {
@@ -22,6 +27,7 @@ public class UserValidator implements Serializable {
 
     ////////////////////////////////////////////////////////////////////////////
 
+    // Checks if a user with the given email address exists
     public void checkIfUserWithEmailAddressExists(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         String emailAddress = (String) value;
     
@@ -38,6 +44,7 @@ public class UserValidator implements Serializable {
 
     ////////////////////////////////////////////////////////////////////////////
 
+    // Checks if the provided password is correct
     public void checkIfPasswordIsCorrect(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         String password = (String) value;
     
@@ -54,6 +61,7 @@ public class UserValidator implements Serializable {
 
     ////////////////////////////////////////////////////////////////////////////
     
+    // Checks if the given phone number is already in use
     public void checkIfPhoneNumberAlreadyExists(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         String phoneNumber = (String) value;
 
@@ -68,6 +76,7 @@ public class UserValidator implements Serializable {
 
     ////////////////////////////////////////////////////////////////////////////
 
+    // Checks if the given email address is already in use
     public void checkIfEmailAddressAlreadyExists(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         String emailAddress = (String) value;
 

@@ -7,6 +7,11 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
 
+/**
+ * UserDAO
+ * Provides methods to interact with User entities in the database
+ */
+
 public class UserDAO {
 
     private static EntityManagerFactory emf;
@@ -18,6 +23,7 @@ public class UserDAO {
         return emf;
     }
 
+    // Returns a list of all users in the database
     public List<User> userList() {
         EntityManager em = null;
         try {
@@ -31,6 +37,7 @@ public class UserDAO {
         }
     }
 
+    // Adds an new user to the database
     public void addUser(User user) {
         EntityManager em = null;
         EntityTransaction transaction = null;
@@ -44,7 +51,7 @@ public class UserDAO {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            throw e; // Re-throw exception or handle appropriately
+            throw e;
         } finally {
             if (em != null) {
                 em.close();
@@ -52,6 +59,7 @@ public class UserDAO {
         }
     }
 
+    // Updates an existing user in the database
     public void updateUser(User user) {
         EntityManager em = null;
         EntityTransaction transaction = null;
@@ -65,7 +73,7 @@ public class UserDAO {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            throw e; // Re-throw exception or handle appropriately
+            throw e;
         } finally {
             if (em != null) {
                 em.close();
@@ -73,6 +81,7 @@ public class UserDAO {
         }
     }
 
+    // Deletes an user from the database
     public void deleteUser(Integer userId) {
         EntityManager em = null;
         EntityTransaction transaction = null;
@@ -89,7 +98,7 @@ public class UserDAO {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            throw e; // Re-throw exception or handle appropriately
+            throw e;
         } finally {
             if (em != null) {
                 em.close();
